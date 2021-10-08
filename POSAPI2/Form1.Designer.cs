@@ -28,19 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv1 = new System.Windows.Forms.DataGridView();
+            this.pbLogo = new System.Windows.Forms.PictureBox();
             this.labelTotal = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // dgv1
             // 
             this.dgv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv1.Location = new System.Drawing.Point(67, 53);
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv1.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv1.Location = new System.Drawing.Point(64, 140);
+            this.dgv1.MultiSelect = false;
             this.dgv1.Name = "dgv1";
-            this.dgv1.Size = new System.Drawing.Size(871, 458);
+            this.dgv1.ReadOnly = true;
+            this.dgv1.RowHeadersVisible = false;
+            this.dgv1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv1.Size = new System.Drawing.Size(820, 436);
             this.dgv1.TabIndex = 0;
+            // 
+            // pbLogo
+            // 
+            this.pbLogo.Image = global::POSAPI2.Properties.Resources.placeholder_logo2;
+            this.pbLogo.Location = new System.Drawing.Point(743, 12);
+            this.pbLogo.Name = "pbLogo";
+            this.pbLogo.Size = new System.Drawing.Size(257, 95);
+            this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbLogo.TabIndex = 1;
+            this.pbLogo.TabStop = false;
             // 
             // labelTotal
             // 
@@ -63,13 +88,19 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1012, 628);
+            this.Controls.Add(this.pbLogo);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.dgv1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -78,6 +109,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgv1;
+        private System.Windows.Forms.PictureBox pbLogo;
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.TextBox textBox1;
     }
