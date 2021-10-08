@@ -20,5 +20,30 @@ namespace POSAPI2
             dgv1.Columns.Add("precio", "Precio");
             dgv1.Columns.Add("total", "Total");
         }
+
+        private void setLayout()
+        {
+            /// <summary>Sets the components' size and layout </summary>
+            dgv1.Width = Convert.ToInt32(this.Width * 0.90);
+            dgv1.Height = Convert.ToInt32(this.Height * 0.60);
+            dgv1.Location = new Point(
+                Convert.ToInt32(this.Width * 0.05),
+                Convert.ToInt32(this.Height * 0.35));
+            dgv1.Columns["cantidad"].Width = Convert.ToInt32(dgv1.Width * 0.20);
+            dgv1.Columns["nombre"].Width = Convert.ToInt32(dgv1.Width * 0.40);
+            dgv1.Columns["precio"].Width = Convert.ToInt32(dgv1.Width * 0.20);
+            dgv1.Columns["total"].Width = Convert.ToInt32(dgv1.Width * 0.20);
+            pbLogo.Width = Convert.ToInt32(this.Width * 0.20);
+            pbLogo.Height = Convert.ToInt32(this.Height * 0.08);
+            pbLogo.Location = new Point(
+                Convert.ToInt32(this.Width - this.Width*0.05 - pbLogo.Width),
+                Convert.ToInt32(this.Height * 0.05));
+            
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            setLayout();
+        }
     }
 }
