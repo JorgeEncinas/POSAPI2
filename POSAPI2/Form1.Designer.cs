@@ -29,33 +29,46 @@
         private void InitializeComponent()
         {
             this.dgv1 = new System.Windows.Forms.DataGridView();
+            this.labelTotal = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.SuspendLayout();
             // 
             // dgv1
             // 
             this.dgv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv1.Location = new System.Drawing.Point(30, 53);
+            this.dgv1.Location = new System.Drawing.Point(67, 53);
             this.dgv1.Name = "dgv1";
-            this.dgv1.Size = new System.Drawing.Size(950, 533);
+            this.dgv1.Size = new System.Drawing.Size(871, 458);
             this.dgv1.TabIndex = 0;
+            // 
+            // labelTotal
+            // 
+            this.labelTotal.AutoSize = true;
+            this.labelTotal.Location = new System.Drawing.Point(903, 528);
+            this.labelTotal.Name = "labelTotal";
+            this.labelTotal.Size = new System.Drawing.Size(35, 13);
+            this.labelTotal.TabIndex = 1;
+            this.labelTotal.Text = "label1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 628);
+            this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.dgv1);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.DataGridView dgv1;
+        private System.Windows.Forms.Label labelTotal;
     }
 }
 
