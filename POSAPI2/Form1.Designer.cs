@@ -30,6 +30,7 @@
         {
             this.dgv1 = new System.Windows.Forms.DataGridView();
             this.labelTotal = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,11 +51,20 @@
             this.labelTotal.TabIndex = 1;
             this.labelTotal.Text = "label1";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(257, 547);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 2;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 628);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.dgv1);
             this.Name = "Form1";
@@ -69,6 +79,7 @@
 
         private System.Windows.Forms.DataGridView dgv1;
         private System.Windows.Forms.Label labelTotal;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
