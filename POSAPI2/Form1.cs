@@ -15,6 +15,10 @@ namespace POSAPI2
         public Form1()
         {
             InitializeComponent();
+            dgv1.Columns.Add("cantidad", "Cantidad");
+            dgv1.Columns.Add("nombre","Nombre");
+            dgv1.Columns.Add("precio", "Precio");
+            dgv1.Columns.Add("total", "Total");
         }
     }
 }
