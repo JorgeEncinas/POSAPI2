@@ -49,7 +49,7 @@ namespace POSAPI2
                         mySqlDataReader.Read();
                         dgv1.Rows.Add("1", mySqlDataReader.GetString(1), String.Format("{0:0.00}", mySqlDataReader.GetDouble(3)), String.Format("{0:0.00}", mySqlDataReader.GetDouble(3)));
                         labelTotal.Text = GetTotal().ToString();
-
+                        textBox1.Clear();
                     }
                     else
                     {
@@ -62,6 +62,23 @@ namespace POSAPI2
                 }
 
             }
+            if (e.KeyChar == 'p' || e.KeyChar == 'P')
+            {
+                try
+                {
+                    e.Handled = true;
+                    //MessageBox.Show($"¿Va a pagar? {textBox1.Text} {total} {Environment.NewLine} " +
+                    //    $"{Convert.ToDouble(textBox1.Text) - total}");
+                    labelTotal.Text = $"Cambio: " + GetChange(Double.Parse(textBox1.Text));
+
+                    textBox1.Clear();
+                    textBox1.Focus();
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
         }
 
         private double GetTotal()
@@ -69,6 +86,7 @@ namespace POSAPI2
             total = 0;
             foreach (DataGridViewRow row in dgv1.Rows)
             {
+
                 total += Double.Parse(row.Cells[3].Value.ToString());
             }
             return total;
@@ -77,9 +95,9 @@ namespace POSAPI2
         private double GetChange(double payment)
         {
             change = 0;
-            if (labelTotal.Text != "")
+            if (!labelTotal.Text.Equals(""))
             {
-                change = Double.Parse(labelTotal.Text) - payment;
+                change = payment - Double.Parse(labelTotal.Text);
             }
             return change;
         }
