@@ -60,6 +60,7 @@
             this.dgv1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv1.Size = new System.Drawing.Size(820, 436);
             this.dgv1.TabIndex = 0;
+            this.dgv1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgv1_KeyPress);
             // 
             // pbLogo
             // 

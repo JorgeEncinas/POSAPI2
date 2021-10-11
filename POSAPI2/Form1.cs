@@ -36,11 +36,11 @@ namespace POSAPI2
         {
             if (e.KeyChar == 13)
             {
-                String query = "SELECT * FROM productos WHERE clave  =" + textBox1.Text;
+                String query = "SELECT * FROM productos WHERE producto_codigo =" + textBox1.Text;
 
                 try
                 {
-                    MySqlConnection mySqlConnection = new MySqlConnection("server=127.0.0.1; user=root; database=verpres3; SSL mode=none");
+                    MySqlConnection mySqlConnection = new MySqlConnection("server=127.0.0.1; user=root; database=verificador_de_precios; SSL mode=none");
                     mySqlConnection.Open();
                     MySqlCommand mySqlCommand = new MySqlCommand(query, mySqlConnection);
                     MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader();
@@ -60,7 +60,8 @@ namespace POSAPI2
                                     nuevoTotal = (x + 1) * nuevoTotal;
                                     row.Cells["cantidad"].Value = x + 1;
                                     row.Cells["total"].Value = nuevoTotal;
-                                    labelTotal.Text = GetTotal().ToString();
+                                    //labelTotal.Text = GetTotal().ToString();
+                                    GetTotal();
                                     textBox1.Clear();
                                     encontrado = true;
                                     row.Selected = true;
@@ -77,7 +78,8 @@ namespace POSAPI2
 
                             dgv1.Rows.Add("1", mySqlDataReader.GetString(1), String.Format("{0:0.00}", mySqlDataReader.GetDouble(3)), String.Format("{0:0.00}", mySqlDataReader.GetDouble(3)));
                             dgv1.Rows[dgv1.Rows.Count - 1].Selected = true;
-                            labelTotal.Text = GetTotal().ToString();
+                            //labelTotal.Text = GetTotal().ToString();
+                            GetTotal();
                             textBox1.Clear();
                         }
 
@@ -89,10 +91,11 @@ namespace POSAPI2
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    //MessageBox.Show(ex.ToString());
                 }
 
             }
+            
             if (e.KeyChar == 'p' || e.KeyChar == 'P')
             {
                 try
@@ -104,13 +107,14 @@ namespace POSAPI2
 
                     textBox1.Clear();
                     textBox1.Focus();
+                    
                 }
                 catch (Exception ex)
                 {
 
                 }
             }
-
+            /*
             if (textBox1.Text.Length == 0 && e.KeyChar == 8)
             {
                 foreach (DataGridViewRow item in this.dgv1.SelectedRows)
@@ -128,10 +132,10 @@ namespace POSAPI2
                     dgv1.Rows.RemoveAt(item.Index);
                     break;
                 }
-            }
+            }*/
         }
 
-        private double GetTotal()
+        private void GetTotal()
         {
             total = 0;
             foreach (DataGridViewRow row in dgv1.Rows)
@@ -139,7 +143,8 @@ namespace POSAPI2
 
                 total += (Double.Parse(row.Cells[2].Value.ToString())) * (Double.Parse(row.Cells[0].Value.ToString()));
             }
-            return total;
+            labelTotal.Text = total.ToString();
+            
         }
 
         private double GetChange(double payment)
@@ -174,6 +179,30 @@ namespace POSAPI2
         private void Form1_Load(object sender, EventArgs e)
         {
             setLayout();
+        }
+
+        private void dgv1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 8)
+            {
+                foreach (DataGridViewRow item in this.dgv1.SelectedRows)
+                {
+                    int nuevoIndice;
+                    if (item.Index == 0)
+                    {
+                        nuevoIndice = item.Index;
+                    }
+                    else
+                    {
+                        nuevoIndice = item.Index - 1;
+                    }
+                    dgv1.Rows[nuevoIndice].Selected = true;
+                    dgv1.Rows.RemoveAt(item.Index);
+                    GetTotal();
+                    break;
+                }
+            }
+
         }
     }
 }
