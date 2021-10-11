@@ -87,7 +87,7 @@ namespace POSAPI2
             foreach (DataGridViewRow row in dgv1.Rows)
             {
 
-                total += Double.Parse(row.Cells[3].Value.ToString());
+                total += (Double.Parse(row.Cells[2].Value.ToString())) * (Double.Parse(row.Cells[0].Value.ToString()));
             }
             return total;
         }
