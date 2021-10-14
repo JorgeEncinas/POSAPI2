@@ -28,13 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv1 = new System.Windows.Forms.DataGridView();
             this.pbLogo = new System.Windows.Forms.PictureBox();
             this.labelTotal = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.panelPay = new System.Windows.Forms.Panel();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.lbMsg = new System.Windows.Forms.Label();
+            this.lbSecond = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
+            this.panelPay.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv1
@@ -45,14 +54,14 @@
             this.dgv1.AllowUserToResizeRows = false;
             this.dgv1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgv1.Location = new System.Drawing.Point(64, 140);
             this.dgv1.MultiSelect = false;
             this.dgv1.Name = "dgv1";
@@ -76,9 +85,10 @@
             // labelTotal
             // 
             this.labelTotal.AutoSize = true;
-            this.labelTotal.Location = new System.Drawing.Point(903, 528);
+            this.labelTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTotal.Location = new System.Drawing.Point(258, 91);
             this.labelTotal.Name = "labelTotal";
-            this.labelTotal.Size = new System.Drawing.Size(35, 13);
+            this.labelTotal.Size = new System.Drawing.Size(86, 31);
             this.labelTotal.TabIndex = 1;
             this.labelTotal.Text = "label1";
             // 
@@ -88,7 +98,71 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 2;
-            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            this.textBox1.Visible = false;
+            // 
+            // panelPay
+            // 
+            this.panelPay.Controls.Add(this.lbSecond);
+            this.panelPay.Controls.Add(this.lbMsg);
+            this.panelPay.Controls.Add(this.btnCancel);
+            this.panelPay.Controls.Add(this.btnOK);
+            this.panelPay.Location = new System.Drawing.Point(264, 207);
+            this.panelPay.Name = "panelPay";
+            this.panelPay.Size = new System.Drawing.Size(472, 300);
+            this.panelPay.TabIndex = 3;
+            this.panelPay.Visible = false;
+            // 
+            // btnOK
+            // 
+            this.btnOK.Location = new System.Drawing.Point(238, 255);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 0;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(345, 255);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // lbMsg
+            // 
+            this.lbMsg.AutoSize = true;
+            this.lbMsg.Location = new System.Drawing.Point(53, 35);
+            this.lbMsg.Name = "lbMsg";
+            this.lbMsg.Size = new System.Drawing.Size(76, 13);
+            this.lbMsg.TabIndex = 2;
+            this.lbMsg.Text = "Main Message";
+            // 
+            // lbSecond
+            // 
+            this.lbSecond.AutoSize = true;
+            this.lbSecond.Location = new System.Drawing.Point(53, 111);
+            this.lbSecond.Name = "lbSecond";
+            this.lbSecond.Size = new System.Drawing.Size(90, 13);
+            this.lbSecond.TabIndex = 3;
+            this.lbSecond.Text = "Second Message";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(123, 91);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 31);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Total:";
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -96,17 +170,23 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1012, 628);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.panelPay);
             this.Controls.Add(this.pbLogo);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.dgv1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
+            this.panelPay.ResumeLayout(false);
+            this.panelPay.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -118,6 +198,13 @@
         private System.Windows.Forms.PictureBox pbLogo;
         private System.Windows.Forms.Label labelTotal;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Panel panelPay;
+        private System.Windows.Forms.Label lbSecond;
+        private System.Windows.Forms.Label lbMsg;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
