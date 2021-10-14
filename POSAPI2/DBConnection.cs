@@ -10,7 +10,7 @@ namespace POSAPI2
 {
     class DBConnection
     {
-        private string connLocal = "server=127.0.0.1; user=root; database=verpres3; SSL mode=none";
+        private string connLocal = "server=127.0.0.1; user=root; database=verificador_de_precios; SSL mode=none";
         private MySqlConnection mySqlConn;
 
         public DBConnection()
