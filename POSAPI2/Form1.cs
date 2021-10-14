@@ -123,7 +123,7 @@ namespace POSAPI2
                     {
                         result.Read();
                         Boolean encontrado = false;
-                        for (int i = dgv1.Rows.Count -1; i > -1; i--)
+                        for (int i = dgv1.Rows.Count - 1; i > -1; i--)
                         {
                             if (dgv1.Rows[i].Cells[0].Value.ToString().Equals(result.GetString(0))) //Compare name
                             {
@@ -212,6 +212,11 @@ namespace POSAPI2
         private void timer1_Tick(object sender, EventArgs e)
         {
             Console.WriteLine(productKey);
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
         }
     }
 }
