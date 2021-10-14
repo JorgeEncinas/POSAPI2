@@ -43,6 +43,7 @@ namespace POSAPI2
 
                 total += (Double.Parse(row.Cells[3].Value.ToString())) * (Double.Parse(row.Cells[1].Value.ToString()));
             }
+            label1.Text = "Total:";
             labelTotal.Text = total.ToString();
             
         }
@@ -54,6 +55,8 @@ namespace POSAPI2
             {
                 change = payment - Double.Parse(labelTotal.Text);
             }
+            label1.Text = "Cambio:";
+            labelTotal.Text = change.ToString();
             return change;
         }
 
@@ -113,98 +116,112 @@ namespace POSAPI2
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!productKey.Equals("") && e.KeyChar == 13)
+            
+            if (e.KeyChar == 13)
             {
-                String query = "SELECT * FROM productos WHERE clave =" + productKey;
-                try
+                if (!productKey.Equals(""))
                 {
-                    MySqlDataReader result = dbconn.queryProduct(query);
-                    if (result != null & result.HasRows) //Shortcircuit AND logical operator stops at first result if FALSE
+                    String query = "SELECT * FROM productos WHERE producto_codigo =" + productKey;
+                    try
                     {
-                        result.Read();
-                        Boolean encontrado = false;
-                        for (int i = dgv1.Rows.Count - 1; i > -1; i--)
+                        MySqlDataReader result = dbconn.queryProduct(query);
+                        if (result != null & result.HasRows) //Shortcircuit AND logical operator stops at first result if FALSE
                         {
-                            if (dgv1.Rows[i].Cells[0].Value.ToString().Equals(result.GetString(0))) //Compare name
+                            result.Read();
+                            Boolean encontrado = false;
+                            for (int i = dgv1.Rows.Count - 1; i > -1; i--)
                             {
-                                int x = Int32.Parse(dgv1.Rows[i].Cells["cantidad"].Value.ToString());
-                                double nuevoTotal = Double.Parse(dgv1.Rows[i].Cells["precio"].Value.ToString());
-                                nuevoTotal = (x + 1) * nuevoTotal;
-                                dgv1.Rows[i].Cells["cantidad"].Value = x + 1;
-                                dgv1.Rows[i].Cells["total"].Value = nuevoTotal;
-                                encontrado = true;
-                                dgv1.Rows[i].Selected = true;
-                                i = 0;
+                                if (dgv1.Rows[i].Cells[0].Value.ToString().Equals(result.GetString(0))) //Compare name
+                                {
+                                    int x = Int32.Parse(dgv1.Rows[i].Cells["cantidad"].Value.ToString());
+                                    double nuevoTotal = Double.Parse(dgv1.Rows[i].Cells["precio"].Value.ToString());
+                                    nuevoTotal = (x + 1) * nuevoTotal;
+                                    dgv1.Rows[i].Cells["cantidad"].Value = x + 1;
+                                    dgv1.Rows[i].Cells["total"].Value = nuevoTotal;
+                                    encontrado = true;
+                                    dgv1.Rows[i].Selected = true;
+                                    i = 0;
+                                }
                             }
+                            if (encontrado == false)
+                            {
+                                dgv1.Rows.Add(result.GetInt32(0),
+                                          "1",
+                                          result.GetString(1),
+                                          String.Format("{0:0.00}", result.GetDouble(3)),
+                                          String.Format("{0:0.00}", result.GetDouble(3)));
+                                dgv1.Rows[dgv1.Rows.Count - 1].Selected = true;
+                            }
+                            GetTotal();
                         }
-                        if (encontrado == false)
-                        {
-                            dgv1.Rows.Add(result.GetInt32(0),
-                                      "1",
-                                      result.GetString(1),
-                                      String.Format("{0:0.00}", result.GetDouble(3)),
-                                      String.Format("{0:0.00}", result.GetDouble(3)));
-                            dgv1.Rows[dgv1.Rows.Count - 1].Selected = true;
-                        }
-                        GetTotal();
+                        result.Close();
                     }
-                    result.Close();
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
+                
                 productKey = "";
+            }
+            
+            else if (e.KeyChar == 'p' || e.KeyChar == 'P')
+            {
+                if (dgv1.Rows.Count > 0)
+                {
+                    try
+                    {
+                        e.Handled = true;
+                        //MessageBox.Show($"¿Completar la transacción? {textBox1.Text} {total} {Environment.NewLine} ");
+                        MessageBox.Show($"¿Completar la transacción? {productKey} {total} {Environment.NewLine} ",
+                                        "Título",
+                                        MessageBoxButtons.OKCancel);
+                        GetChange(Double.Parse(productKey)).ToString();
+                        productKey = "";
+                        dgv1.Rows.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ha ocurrido un error al realizar el pago y se ha abortado la operación.");
+                    }
+                }
+                
+            }
+
+            else if (e.KeyChar == 8)
+            {
+                if (dgv1.Rows.Count > 0)
+                {
+                    //showPanel("¿Seguro que desea eliminar este producto?");
+                    DataGridViewRow item = dgv1.SelectedRows[0];
+                    MessageBox.Show($"Se eliminará el producto {item.Cells[2].Value.ToString()}");
+                    int itemQuantity = Convert.ToInt32(item.Cells[1].Value);
+                    if (itemQuantity > 1)
+                    {
+                        item.Cells[1].Value = itemQuantity - 1;
+                    }
+                    else
+                    {
+                        int nuevoIndice;
+                        if (item.Index == 0)
+                        {
+                            nuevoIndice = item.Index;
+                        }
+                        else
+                        {
+                            nuevoIndice = item.Index - 1;
+                        }
+                        dgv1.Rows[nuevoIndice].Selected = true;
+                        dgv1.Rows.RemoveAt(item.Index);
+                    }
+                    GetTotal();
+                    productKey = "";
+                }
+                
             }
             else
             {
                 productKey += e.KeyChar;
-            }
-            if (e.KeyChar == 'p' || e.KeyChar == 'P')
-            {
-                try
-                {
-                    e.Handled = true;
-                    //MessageBox.Show($"¿Completar la transacción? {textBox1.Text} {total} {Environment.NewLine} ");
-                    MessageBox.Show($"¿Completar la transacción? {productKey} {total} {Environment.NewLine} ",
-                                    "Título",
-                                    MessageBoxButtons.OKCancel);
-                    labelTotal.Text = $"Cambio: " + GetChange(Double.Parse(productKey));
-
-                    productKey = "";
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ha ocurrido un error al realizar el pago y se ha abortado la operación.");
-                }
-            }
-            if (dgv1.Rows.Count > 0 & e.KeyChar == 8)
-            {
-                //showPanel("¿Seguro que desea eliminar este producto?");
-                DataGridViewRow item = dgv1.SelectedRows[0];
-                MessageBox.Show($"Se eliminará el producto {item.Cells[2].Value.ToString()}");
-                int itemQuantity = Convert.ToInt32(item.Cells[1].Value);
-                if (itemQuantity > 1)
-                {
-                    item.Cells[1].Value = itemQuantity - 1;
-                }
-                else
-                {
-                    int nuevoIndice;
-                    if (item.Index == 0)
-                    {
-                        nuevoIndice = item.Index;
-                    }
-                    else
-                    {
-                        nuevoIndice = item.Index - 1;
-                    }
-                    dgv1.Rows[nuevoIndice].Selected = true;
-                    dgv1.Rows.RemoveAt(item.Index);
-                }
-                GetTotal();
-                productKey = "";
             }
             this.Focus();
         }
