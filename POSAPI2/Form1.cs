@@ -27,8 +27,6 @@ namespace POSAPI2
 
         private void Form1_Load()
         {
-            labelTotal.Location = new Point(Convert.ToInt32(dgv1.Width - labelTotal.Width), Convert.ToInt32(dgv1.Height + labelTotal.Height + 20));
-            labelTotal.Text = "";
 
         }
 
@@ -36,11 +34,11 @@ namespace POSAPI2
         {
             if (e.KeyChar == 13)
             {
-                String query = "SELECT * FROM productos WHERE producto_codigo =" + textBox1.Text;
+                String query = "SELECT * FROM productos WHERE clave =" + textBox1.Text;
 
                 try
                 {
-                    MySqlConnection mySqlConnection = new MySqlConnection("server=127.0.0.1; user=root; database=verificador_de_precios; SSL mode=none");
+                    MySqlConnection mySqlConnection = new MySqlConnection("server=127.0.0.1; user=root; database=verpres3; SSL mode=none");
                     mySqlConnection.Open();
                     MySqlCommand mySqlCommand = new MySqlCommand(query, mySqlConnection);
                     MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader();
@@ -174,11 +172,15 @@ namespace POSAPI2
             pbLogo.Location = new Point(
                 Convert.ToInt32(this.Width - this.Width * 0.05 - pbLogo.Width),
                 Convert.ToInt32(this.Height * 0.05));
+            labelTotal.Location = new Point(Convert.ToInt32(this.Width * 0.05), Convert.ToInt32(this.Height*0.03));
+            labelTotal.Text = "";
+            textBox1.Location = new Point(Convert.ToInt32(this.Width * 0.05), Convert.ToInt32(this.Height*0.08));
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             setLayout();
+            textBox1.Focus();
         }
 
         private void dgv1_KeyPress(object sender, KeyPressEventArgs e)
