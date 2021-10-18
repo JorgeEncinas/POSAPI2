@@ -79,6 +79,8 @@ namespace POSAPI2
             dgv1.Columns["nombre"].Width = Convert.ToInt32(dgv1.Width * 0.40);
             dgv1.Columns["precio"].Width = Convert.ToInt32(dgv1.Width * 0.20);
             dgv1.Columns["total"].Width = Convert.ToInt32(dgv1.Width * 0.20);
+            dgv1.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgv1.ColumnHeadersDefaultCellStyle.Font = new Font("Times new Roman", 20F, FontStyle.Bold);
             pbLogo.Width = Convert.ToInt32(this.Width * 0.20);
             pbLogo.Height = Convert.ToInt32(this.Height * 0.08);
             pbLogo.Location = new Point(
