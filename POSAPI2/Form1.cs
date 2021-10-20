@@ -43,7 +43,7 @@ namespace POSAPI2
 
                 total += (Double.Parse(row.Cells[3].Value.ToString())) * (Double.Parse(row.Cells[1].Value.ToString()));
             }
-            label1.Text = "Total:";
+            lbTotalName.Text = "Total:";
             labelTotal.Text = total.ToString();
             
         }
@@ -55,7 +55,7 @@ namespace POSAPI2
             {
                 change = payment - Double.Parse(labelTotal.Text);
             }
-            label1.Text = "Cambio:";
+            lbTotalName.Text = "Cambio:";
             labelTotal.Text = change.ToString();
             return change;
         }
@@ -70,11 +70,11 @@ namespace POSAPI2
         {
             /// <summary>Sets the components' size and layout </summary>
             dgv1.Columns["id"].Visible = false;
-            dgv1.Width = Convert.ToInt32(this.Width * 0.95);
-            dgv1.Height = Convert.ToInt32(this.Height * 0.825);
+            dgv1.Width = Convert.ToInt32(this.Width * 0.65);
+            dgv1.Height = Convert.ToInt32(this.Height * 0.90);
             dgv1.Location = new Point(
                 Convert.ToInt32(this.Width * 0.025),
-                Convert.ToInt32(this.Height * 0.15));
+                Convert.ToInt32(this.Height * 0.08));
             dgv1.Columns["cantidad"].Width = Convert.ToInt32(dgv1.Width * 0.20);
             dgv1.Columns["nombre"].Width = Convert.ToInt32(dgv1.Width * 0.40);
             dgv1.Columns["precio"].Width = Convert.ToInt32(dgv1.Width * 0.20);
@@ -84,8 +84,8 @@ namespace POSAPI2
             pbLogo.Location = new Point(
                 Convert.ToInt32(this.Width - this.Width * 0.05 - pbLogo.Width),
                 Convert.ToInt32(this.Height * 0.05));
-            label1.Location = new Point(Convert.ToInt32(this.Width * 0.09), Convert.ToInt32(this.Height*0.03));
-            labelTotal.Location = new Point(Convert.ToInt32(this.Width * 0.25), Convert.ToInt32(this.Height*0.03));
+            lbTotalName.Location = new Point(Convert.ToInt32(this.Width * 0.69), Convert.ToInt32(this.Height*0.17));
+            labelTotal.Location = new Point(Convert.ToInt32(this.Width * 0.89), Convert.ToInt32(this.Height*0.17));
             labelTotal.Text = "";
             textBox1.Location = new Point(Convert.ToInt32(this.Width * 0.05), Convert.ToInt32(this.Height*0.08));
             panelPay.Width = Convert.ToInt32(this.Width * 0.4);
@@ -121,7 +121,7 @@ namespace POSAPI2
             {
                 if (!productKey.Equals(""))
                 {
-                    String query = "SELECT * FROM productos WHERE producto_codigo =" + productKey;
+                    String query = "SELECT * FROM productos WHERE clave =" + productKey;
                     try
                     {
                         MySqlDataReader result = dbconn.queryProduct(query);
