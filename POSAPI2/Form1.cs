@@ -232,5 +232,10 @@ namespace POSAPI2
         {
             Console.WriteLine(productKey);
         }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
     }
 }
