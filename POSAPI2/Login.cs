@@ -19,7 +19,8 @@ namespace POSAPI2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            Form1 poswindow = new Form1();
+            poswindow.Show();
         }
     }
 }
