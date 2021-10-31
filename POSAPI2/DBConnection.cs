@@ -36,7 +36,7 @@ namespace POSAPI2
             return reader;
         }
         
-        public bool encryptAES(string passwd)
+        public bool compareAES(string passwd)
         {
             bool passwdCheck = false;
             using (Aes myAes = Aes.Create())
@@ -45,6 +45,17 @@ namespace POSAPI2
                 byte[] encrypted = EncryptStringToBytes_AES(passwd, myAes.Key, myAes.IV);
             }
                 return passwdCheck;
+        }
+        public string encryptAES(string passwd)
+        {
+            string encryptedpwd = "";
+            using (Aes myAes = Aes.Create())
+            {
+                // Encrypt the string to an array of bytes.
+                byte[] encrypted = EncryptStringToBytes_AES(passwd, myAes.Key, myAes.IV);
+                encryptedpwd = BitConverter.ToString(encrypted);
+            }
+            return encryptedpwd;
         }
         static byte[] EncryptStringToBytes_AES(string plainText, byte[] Key, byte[] IV)
         {
