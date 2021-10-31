@@ -33,6 +33,5 @@ namespace POSAPI2
             }
             return reader;
         }
-
     }
 }

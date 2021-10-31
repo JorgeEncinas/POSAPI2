@@ -46,7 +46,7 @@ namespace POSAPI2
             lbTotalName.Text = "Total:";
             labelTotal.Text = total.ToString();
             
-        }
+      }
 
         private double GetChange(double payment)
         {
@@ -228,7 +228,7 @@ namespace POSAPI2
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Console.WriteLine(productKey);
+            //Console.WriteLine(productKey);
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
