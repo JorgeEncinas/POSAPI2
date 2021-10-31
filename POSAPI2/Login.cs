@@ -22,5 +22,10 @@ namespace POSAPI2
             Form1 poswindow = new Form1();
             poswindow.Show();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

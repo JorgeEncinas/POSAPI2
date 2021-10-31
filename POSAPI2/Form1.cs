@@ -33,6 +33,17 @@ namespace POSAPI2
             dgv1.Columns["nombre"].DisplayIndex = 2;
             dgv1.Columns["precio"].DisplayIndex = 3;
             dgv1.Columns["total"].DisplayIndex = 4;
+            dgvSaldo.Columns.Add("id","id");
+            dgvSaldo.Columns.Add("cantidad", "Cantidad");
+            dgvSaldo.Columns.Add("nombre", "Nombre");
+            dgvSaldo.Columns.Add("precio", "Precio");
+            dgvSaldo.Columns.Add("total", "Total");
+            dgvSaldo.Columns["id"].DisplayIndex = 0;
+            dgvSaldo.Columns["cantidad"].DisplayIndex = 1;
+            dgvSaldo.Columns["nombre"].DisplayIndex = 2;
+            dgvSaldo.Columns["precio"].DisplayIndex = 3;
+            dgvSaldo.Columns["total"].DisplayIndex = 4;
+
         }
 
         private void GetTotal()
@@ -40,12 +51,10 @@ namespace POSAPI2
             total = 0;
             foreach (DataGridViewRow row in dgv1.Rows)
             {
-
                 total += (Double.Parse(row.Cells[3].Value.ToString())) * (Double.Parse(row.Cells[1].Value.ToString()));
             }
             lbTotalName.Text = "Total:";
-            labelTotal.Text = total.ToString();
-            
+            labelTotal.Text = total.ToString();  
       }
 
         private double GetChange(double payment)
@@ -70,6 +79,7 @@ namespace POSAPI2
         {
             /// <summary>Sets the components' size and layout </summary>
             dgv1.Columns["id"].Visible = false;
+            dgvSaldo.Columns["id"].Visible = false;
             dgv1.Width = Convert.ToInt32(this.Width * 0.65);
             dgv1.Height = Convert.ToInt32(this.Height * 0.90);
             dgv1.Location = new Point(
@@ -88,9 +98,48 @@ namespace POSAPI2
             labelTotal.Location = new Point(Convert.ToInt32(this.Width * 0.89), Convert.ToInt32(this.Height*0.17));
             labelTotal.Text = "";
             textBox1.Location = new Point(Convert.ToInt32(this.Width * 0.05), Convert.ToInt32(this.Height*0.08));
-            panelPay.Width = Convert.ToInt32(this.Width * 0.4);
-            panelPay.Height = Convert.ToInt32(this.Height * 0.4);
-            centerElementAtY(this, panelPay, 0.50, 0.50);
+            sizeToSuperior(this, btnChSaldo, 0.10, 0.10);
+            btnChSaldo.Location = new Point(Convert.ToInt32(this.Width * 0.88),
+                                            Convert.ToInt32(this.Height * 0.88));
+            //Saldos window
+            sizeToSuperior(this, panelSaldo, 0.90, 0.90);
+            sizeToSuperior(panelSaldo, btn100, 0.20, 0.15);
+            sizeToSuperior(panelSaldo, btn200, 0.20, 0.15);
+            sizeToSuperior(panelSaldo, btn300, 0.20, 0.15);
+            sizeToSuperior(panelSaldo, dgvSaldo, 0.65, 0.90);
+            sizeToSuperior(panelSaldo, btnOK, 0.15, 0.10);
+            sizeToSuperior(panelSaldo, btnCancel, 0.15, 0.10);
+            dgvSaldo.Columns["cantidad"].Width = Convert.ToInt32(dgvSaldo.Width * 0.20);
+            dgvSaldo.Columns["nombre"].Width = Convert.ToInt32(dgvSaldo.Width * 0.40);
+            dgvSaldo.Columns["precio"].Width = Convert.ToInt32(dgvSaldo.Width * 0.20);
+            dgvSaldo.Columns["total"].Width = Convert.ToInt32(dgvSaldo.Width * 0.20);
+            sizeToSuperior(panelSaldo, lbNum1, 0.90, 0.30);
+            sizeToSuperior(panelSaldo, lbNum2, 0.90, 0.50);
+            sizeToSuperior(panelSaldo, tbNumTel, 0.20, 0.33);
+            sizeToSuperior(panelSaldo, tbNumTel2, 0.20, 0.53);
+            placeOnSuperior(panelSaldo, lbMontoTxt, 0.70, 0.0, 0.75, 0.50);
+            placeOnSuperior(panelSaldo, lbMonto, 0.73, 0.0, 0.80, 0.50);
+            placeOnSuperior(this, panelSaldo, 0.50, 0.50, 0.50, 0.50);
+            placeOnSuperior(panelSaldo, dgvSaldo, 0.010, 0, 0.08, 0);
+            placeOnSuperior(panelSaldo, btn100, 0.20, 0.50, 0.30, 0.50);
+            placeOnSuperior(panelSaldo, btn200, 0.50, 0.50, 0.30, 0.50);
+            placeOnSuperior(panelSaldo, btn300, 0.80, 0.50, 0.30, 0.50);
+            placeOnSuperior(panelSaldo, btnOK, 0.75, 0.50, 0.90, 0.50);
+            placeOnSuperior(panelSaldo, btnCancel, 0.90, 0.50, 0.90, 0.50);
+            dgvSaldo.Visible = false;
+        }
+
+        private void placeOnSuperior(Control superior, Control inferior, double sPercentageX, double iPercentageX, double sPercentageY, double iPercentageY)
+        {
+            inferior.Location = new Point(
+                    Convert.ToInt32((superior.Width*sPercentageX) - (inferior.Width*iPercentageX)),
+                    Convert.ToInt32((superior.Height*sPercentageY) - (inferior.Height*iPercentageY)));
+        }
+
+        private void sizeToSuperior(Control superior, Control inferior, double percentageX, double percentageY)
+        {
+            inferior.Size = new Size(Convert.ToInt32(superior.Width * percentageX),
+                                     Convert.ToInt32(superior.Height * percentageY));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -101,9 +150,9 @@ namespace POSAPI2
         private void showPanel(string msg)
         {
             //Step 1.- Change msg
-            lbMsg.Text = msg;
+            //lbMsg.Text = msg;
             //Step 2.- Re-center msg
-            centerElementAtY(panelPay, lbMsg, 0.30, 0.50);
+            //centerElementAtY(panelSueldo, lbMsg, 0.30, 0.50);
             //Step 3.- Set which buttons to show according to parameters
             //Step 4.- Return a boolean value or set an action for the buttons
             //Step 5.- Set panel Visible
@@ -233,6 +282,62 @@ namespace POSAPI2
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
+
+        }
+
+        private void btnAddSaldo_Click(object sender, EventArgs e, Control control)
+        {
+            Button temp = (Button)sender;
+            int saldo = 0;
+            if(temp!= null)
+            {
+                saldo = Convert.ToInt32(temp.Tag);
+            }
+        }
+
+        private void btnChSaldo_Click(object sender, EventArgs e)
+        {
+            panelSaldo.Visible = true;
+            panelSaldo.BringToFront();
+            btnChSaldo.TabStop = false;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        { //Cancelar
+            panelSaldo.Visible = false;
+            btnChSaldo.TabStop = true;
+            btnOK.Click += showSaldos;
+        }
+
+        private void showSaldos(object sender, EventArgs e)
+        { //Mostrar los saldos
+            dgvSaldo.Visible = true;
+            btn100.Visible = false;
+            btn200.Visible = false;
+            btn300.Visible = false;
+            btnOK.Click += this.showPhone; //Pongo el método que quiero que ejecute
+            btnOK.Click -= this.showSaldos; //Quito el método que ya no vamos a utilizar
+            btnCancel.Click += this.cancelSaldos;
+            btnCancel.Click -= this.btnCancel_Click;
+        }
+
+        private void cancelSaldos(object sender, EventArgs e)
+        { //Cancelar y mostrar los 3 botones
+
+        }
+
+        private void showPhone(object sender, EventArgs e)
+        { //Mostrar el input de teléfono
+
+        }
+
+        private void cancelPhone(object sender, EventArgs e)
+        { //Volver al DGV
+
+        }
+
+        private void finishPhoneTransaction(object sender, EventArgs e)
+        { //Terminar la transacción, limpiar el dgvSaldo, volver el panelSaldo al estado inicial.
 
         }
     }
