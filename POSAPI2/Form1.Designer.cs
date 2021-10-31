@@ -124,9 +124,9 @@
             this.panelPay.Controls.Add(this.lbMsg);
             this.panelPay.Controls.Add(this.btnCancel);
             this.panelPay.Controls.Add(this.btnOK);
-            this.panelPay.Location = new System.Drawing.Point(264, 207);
+            this.panelPay.Location = new System.Drawing.Point(202, 160);
             this.panelPay.Name = "panelPay";
-            this.panelPay.Size = new System.Drawing.Size(472, 300);
+            this.panelPay.Size = new System.Drawing.Size(613, 399);
             this.panelPay.TabIndex = 3;
             this.panelPay.Visible = false;
             // 
