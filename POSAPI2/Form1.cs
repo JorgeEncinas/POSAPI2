@@ -17,8 +17,10 @@ namespace POSAPI2
         private double change = 0;
         private DBConnection dbconn;
         private string productKey;
+        private int idUsuario;
+        private string nombreUsuario;
 
-        public Form1()
+        public Form1(int idUsuario, string nombreUsuario)
         {
             InitializeComponent();
             dbconn = new DBConnection();
@@ -43,7 +45,8 @@ namespace POSAPI2
             dgvSaldo.Columns["nombre"].DisplayIndex = 2;
             dgvSaldo.Columns["precio"].DisplayIndex = 3;
             dgvSaldo.Columns["total"].DisplayIndex = 4;
-
+            this.idUsuario = idUsuario;
+            this.nombreUsuario = nombreUsuario;
         }
 
         private void GetTotal()
@@ -54,7 +57,7 @@ namespace POSAPI2
                 total += (Double.Parse(row.Cells[3].Value.ToString())) * (Double.Parse(row.Cells[1].Value.ToString()));
             }
             lbTotalName.Text = "Total:";
-            labelTotal.Text = total.ToString();  
+            labelTotal.Text = total.ToString();
       }
 
         private double GetChange(double payment)
@@ -222,17 +225,43 @@ namespace POSAPI2
                     {
                         e.Handled = true;
                         //MessageBox.Show($"¿Completar la transacción? {textBox1.Text} {total} {Environment.NewLine} ");
-                        MessageBox.Show($"¿Completar la transacción? {productKey} {total} {Environment.NewLine} ",
+                        DialogResult result = MessageBox.Show($"¿Completar la transacción? {productKey} {total} {Environment.NewLine} ",
                                         "Título",
                                         MessageBoxButtons.OKCancel);
-                        GetChange(Double.Parse(productKey)).ToString();
-                        productKey = "";
-                        dgv1.Rows.Clear();
+                        if (result == DialogResult.OK)
+                        {
+                            double recibido = 0;
+                            if (Double.TryParse(productKey, out recibido))
+                            {
+                                if (recibido >= total)
+                                {
+                                    GetChange(recibido);
+                                    string queryInsert = "INSERT INTO ventas(idUsuario, total, recibido) VALUES(" + idUsuario + ", " + total + ", " + recibido + ")";
+                                    dbconn.executeNonQuery(queryInsert);
+                                    string queryID = "SELECT LAST_INSERT_ID()";
+                                    int ventaID = dbconn.executeScalar(queryID);
+                                    string queryProducto = "";
+                                    foreach (DataGridViewRow row in dgv1.Rows)
+                                    {
+                                        queryProducto = "INSERT INTO ventadetalle(idVenta, idProducto, cantidad) VALUES(" + ventaID + ", " + row.Cells["id"].Value.ToString() + ", " + row.Cells["cantidad"].Value.ToString() + ")";
+                                        dbconn.executeNonQuery(queryProducto);
+                                    }
+                                    dgv1.Rows.Clear();
+                                    labelTotal.Text = "";
+                                } else
+                                {
+                                    MessageBox.Show("No le alcanza");
+                                }
+                                
+                            }
+                        } 
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Ha ocurrido un error al realizar el pago y se ha abortado la operación.");
+                        //MessageBox.Show("Ha ocurrido un error al realizar el pago y se ha abortado la operación.");
+                        MessageBox.Show(ex.ToString());
                     }
+                    productKey = "";
                 }
                 
             }
@@ -323,7 +352,10 @@ namespace POSAPI2
 
         private void cancelSaldos(object sender, EventArgs e)
         { //Cancelar y mostrar los 3 botones
-
+            btn100.Visible = true;
+            dgvSaldo.Visible = false;
+            btnCancel.Click -= this.cancelSaldos;
+            btnCancel.Click += this.showSaldos;
         }
 
         private void showPhone(object sender, EventArgs e)

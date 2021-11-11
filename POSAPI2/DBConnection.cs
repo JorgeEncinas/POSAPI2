@@ -20,6 +20,36 @@ namespace POSAPI2
             mySqlConn = new MySqlConnection(connLocal);
         }
 
+        public void executeNonQuery(string query)
+        {
+            try
+            {
+                mySqlConn.Open();
+                MySqlCommand command = new MySqlCommand(query, mySqlConn);
+                command.ExecuteNonQuery();
+            } catch(MySqlException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            mySqlConn.Close();
+        }
+
+        public int executeScalar(string query)
+        {
+            int result = 0;
+            try
+            {
+                mySqlConn.Open();
+                MySqlCommand command = new MySqlCommand(query, mySqlConn);
+                result = Convert.ToInt32(command.ExecuteScalar());
+            } catch(MySqlException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            mySqlConn.Close();
+            return result;
+        }
+
         public MySqlDataReader queryProduct(string query)
         {
             MySqlDataReader reader = null;
