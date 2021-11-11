@@ -138,5 +138,10 @@ namespace POSAPI2
                 loginbtn_Click(sender, e);
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
