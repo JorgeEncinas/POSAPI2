@@ -93,6 +93,8 @@ namespace POSAPI2
             panelPay.Width = Convert.ToInt32(this.Width * 0.4);
             panelPay.Height = Convert.ToInt32(this.Height * 0.4);
             centerElementAtY(this, panelPay, 0.50, 0.50);
+
+            namelb.Text = Login.name;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -123,7 +125,7 @@ namespace POSAPI2
             {
                 if (!productKey.Equals(""))
                 {
-                    String query = "SELECT * FROM productos WHERE clave =" + productKey;
+                    String query = "SELECT * FROM productos WHERE producto_codigo =" + productKey;
                     try
                     {
                         MySqlDataReader result = dbconn.queryProduct(query);

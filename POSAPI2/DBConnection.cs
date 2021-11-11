@@ -12,7 +12,7 @@ namespace POSAPI2
 {
     class DBConnection
     {
-        private string connLocal = "server=127.0.0.1; user=root; database=verpres3; SSL mode=none";
+        private string connLocal = "server=127.0.0.1; user=root; database=verificador_de_precios; SSL mode=none";
         private MySqlConnection mySqlConn;
 
         public DBConnection()
@@ -30,7 +30,7 @@ namespace POSAPI2
                 reader = mySqlCommand.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
             } catch(Exception ex)
             {
-                mySqlConn.Close();
+                CloseConnection();
                 MessageBox.Show(ex.ToString());
             }
             return reader;
@@ -95,6 +95,64 @@ namespace POSAPI2
 
             // Return the encrypted bytes from the memory stream.
             return encrypted;
+        }
+
+        public MySqlDataReader CompareCredentials(string user, string encryptedPassword)
+        {
+            MySqlDataReader reader = null;
+            try
+            {
+                mySqlConn.Open();
+                String query = "SELECT * FROM usuarios WHERE username = '" + user + "' AND passwd = '" + encryptedPassword + "';";
+                //MessageBox.Show(query);
+                MySqlCommand mySqlCommand = new MySqlCommand(query, mySqlConn);
+                reader = mySqlCommand.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+            }
+            catch (Exception ex)
+            {
+                CloseConnection();
+                MessageBox.Show(ex.ToString());
+            }
+            
+            return reader;
+        }
+
+
+        public string GetSHA256(string str)
+        {
+            SHA256 sha256 = SHA256Managed.Create();
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] stream = null;
+            StringBuilder sb = new StringBuilder();
+            stream = sha256.ComputeHash(encoding.GetBytes(str));
+            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
+            return sb.ToString();
+        }
+
+        public void InsertEncryptedPass(String user, String password)
+        {
+            MySqlDataReader reader = null;
+            try
+            {
+                mySqlConn.Open();
+                String encryptedpasswd = GetSHA256(password);
+                //MessageBox.Show(encryptedpasswd);
+                //String query = "INSERT INTO usuarios () VALUES ();";
+                String query = "UPDATE usuarios SET passwd = '" + encryptedpasswd + "' WHERE username =" + user + ";";
+                MySqlCommand mySqlCommand = new MySqlCommand(query, mySqlConn);
+                reader = mySqlCommand.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+            }
+            catch (Exception ex)
+            {
+                
+                MessageBox.Show(ex.ToString());
+            }
+            CloseConnection();
+        }
+
+        public void CloseConnection()
+        {
+            mySqlConn.Close();
         }
     }
 }
