@@ -35,19 +35,25 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv1 = new System.Windows.Forms.DataGridView();
             this.labelTotal = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.dgvSaldo = new System.Windows.Forms.DataGridView();
+            this.btn100 = new System.Windows.Forms.Button();
+            this.btn200 = new System.Windows.Forms.Button();
+            this.btn300 = new System.Windows.Forms.Button();
             this.panelSaldo = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.lbTotalName = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pbLogo = new System.Windows.Forms.PictureBox();
-            this.dgvSaldo = new System.Windows.Forms.DataGridView();
-            this.btn100 = new System.Windows.Forms.Button();
-            this.btn200 = new System.Windows.Forms.Button();
-            this.btn300 = new System.Windows.Forms.Button();
             this.btnChSaldo = new System.Windows.Forms.Button();
             this.lbUser = new System.Windows.Forms.Label();
             this.lbAtiende = new System.Windows.Forms.Label();
@@ -57,10 +63,12 @@
             this.lbNum2 = new System.Windows.Forms.Label();
             this.lbMontoTxt = new System.Windows.Forms.Label();
             this.lbMonto = new System.Windows.Forms.Label();
+            this.namelb = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv1)).BeginInit();
             this.panelSaldo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSaldo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // dgv1
@@ -71,6 +79,8 @@
             this.dgv1.AllowUserToResizeRows = false;
             dataGridViewCellStyle43.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dgv1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle43;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgv1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.dgv1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgv1.BackgroundColor = System.Drawing.Color.White;
             this.dgv1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -83,6 +93,14 @@
             dataGridViewCellStyle44.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle44.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle44;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dgv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle45.BackColor = System.Drawing.SystemColors.Window;
@@ -92,6 +110,14 @@
             dataGridViewCellStyle45.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv1.DefaultCellStyle = dataGridViewCellStyle45;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv1.DefaultCellStyle = dataGridViewCellStyle15;
             this.dgv1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.dgv1.Location = new System.Drawing.Point(64, 140);
             this.dgv1.MultiSelect = false;
@@ -150,7 +176,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 5;
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Cancelado";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -239,6 +265,7 @@
             this.btn100.Tag = "100";
             this.btn100.Text = "$100.00";
             this.btn100.UseVisualStyleBackColor = true;
+            this.btn100.Click += new System.EventHandler(this.add100);
             // 
             // btn200
             // 
@@ -249,6 +276,7 @@
             this.btn200.Tag = "200";
             this.btn200.Text = "$200.00";
             this.btn200.UseVisualStyleBackColor = true;
+            this.btn200.Click += new System.EventHandler(this.add200);
             // 
             // btn300
             // 
@@ -259,6 +287,7 @@
             this.btn300.Tag = "300";
             this.btn300.Text = "$300.00";
             this.btn300.UseVisualStyleBackColor = true;
+            this.btn300.Click += new System.EventHandler(this.add300);
             // 
             // btnChSaldo
             // 
@@ -352,8 +381,18 @@
             this.lbMonto.Name = "lbMonto";
             this.lbMonto.Size = new System.Drawing.Size(100, 29);
             this.lbMonto.TabIndex = 9;
-            this.lbMonto.Text = "lbMonto";
+            this.lbMonto.Text = "0.00";
             this.lbMonto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // namelb
+            // 
+            this.namelb.AutoSize = true;
+            this.namelb.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.namelb.Location = new System.Drawing.Point(64, 12);
+            this.namelb.Name = "namelb";
+            this.namelb.Size = new System.Drawing.Size(165, 31);
+            this.namelb.TabIndex = 6;
+            this.namelb.Text = "User\'s name";
             // 
             // Form1
             // 
@@ -363,6 +402,7 @@
             this.ClientSize = new System.Drawing.Size(1012, 628);
             this.Controls.Add(this.lbAtiende);
             this.Controls.Add(this.lbUser);
+            this.Controls.Add(this.namelb);
             this.Controls.Add(this.btnChSaldo);
             this.Controls.Add(this.lbTotalName);
             this.Controls.Add(this.panelSaldo);
@@ -381,7 +421,6 @@
             this.panelSaldo.ResumeLayout(false);
             this.panelSaldo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSaldo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -411,6 +450,7 @@
         private System.Windows.Forms.Label lbAtiende;
         private System.Windows.Forms.Label lbMonto;
         private System.Windows.Forms.Label lbMontoTxt;
+        private System.Windows.Forms.Label namelb;
     }
 }
 
