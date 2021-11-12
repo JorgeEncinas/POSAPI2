@@ -129,9 +129,9 @@ namespace POSAPI2
             placeOnSuperior(panelSaldo, btnOK, 0.75, 0.50, 0.90, 0.50);
             placeOnSuperior(panelSaldo, btnCancel, 0.90, 0.50, 0.90, 0.50);
             dgvSaldo.Visible = false;
-            panelPay.Width = Convert.ToInt32(this.Width * 0.4);
-            panelPay.Height = Convert.ToInt32(this.Height * 0.4);
-            centerElementAtY(this, panelPay, 0.50, 0.50);
+            //panelPay.Width = Convert.ToInt32(this.Width * 0.4);
+            //panelPay.Height = Convert.ToInt32(this.Height * 0.4);
+            //centerElementAtY(this, panelPay, 0.50, 0.50);
 
             namelb.Text = Login.name;
         }
@@ -273,6 +273,48 @@ namespace POSAPI2
                     GetTotal();
                     productKey = "";
                 }
+                if (dgvSaldo.Rows.Count > 0)
+                {
+                    //showPanel("¿Seguro que desea eliminar este producto?");
+                    DataGridViewRow item = dgvSaldo.SelectedRows[0];
+                    MessageBox.Show($"Se eliminará el producto {item.Cells[2].Value.ToString()}");
+                    if(item.Cells[2].Value.ToString() == "saldo 100")
+                    {
+                        double monto = Double.Parse(lbMonto.Text) - 100;
+                        lbMonto.Text = monto.ToString("0.00");
+                    }
+                    if(item.Cells[2].Value.ToString() == "saldo 200")
+                    {
+                        double monto = Double.Parse(lbMonto.Text) - 200;
+                        lbMonto.Text = monto.ToString("0.00");
+                    }
+                    if(item.Cells[2].Value.ToString() == "saldo 300")
+                    {
+                        double monto = Double.Parse(lbMonto.Text) - 300;
+                        lbMonto.Text = monto.ToString("0.00");
+                    }
+                    int itemQuantity = Convert.ToInt32(item.Cells[1].Value);
+                    if (itemQuantity > 1)
+                    {
+                        item.Cells[1].Value = itemQuantity - 1;
+                    }
+                    else
+                    {
+                        int nuevoIndice;
+                        if (item.Index == 0)
+                        {
+                            nuevoIndice = item.Index;
+                        }
+                        else
+                        {
+                            nuevoIndice = item.Index - 1;
+                        }
+                        dgvSaldo.Rows[nuevoIndice].Selected = true;
+                        dgvSaldo.Rows.RemoveAt(item.Index);
+                    }
+                    GetTotal();
+                    productKey = "";
+                }
                 
             }
             else
@@ -328,19 +370,176 @@ namespace POSAPI2
             btnCancel.Click -= this.btnCancel_Click;
         }
 
+        private void add100(object sender, EventArgs e)
+        {
+            Boolean encontrado = false;
+            for (int i = dgvSaldo.Rows.Count - 1; i > -1; i--)
+            {
+                if (dgvSaldo.Rows[i].Cells["nombre"].Value.ToString().Equals("saldo 100")) //Compare name
+                {
+                    int x = Int32.Parse(dgvSaldo.Rows[i].Cells["cantidad"].Value.ToString());
+                    double nuevoTotal = Double.Parse(dgvSaldo.Rows[i].Cells["precio"].Value.ToString());
+                    nuevoTotal = (x + 1) * nuevoTotal;
+                    dgvSaldo.Rows[i].Cells["cantidad"].Value = x + 1;
+                    dgvSaldo.Rows[i].Cells["total"].Value = nuevoTotal;
+                    double monto = Double.Parse(lbMonto.Text) + 100;
+                    lbMonto.Text = monto.ToString("0.00");
+                    encontrado = true;
+                    dgvSaldo.Rows[i].Selected = true;
+                    i = 0;
+                }
+            }
+            if (encontrado == false)
+            {
+                dgvSaldo.Rows.Add(0, 1,"saldo 100",  String.Format("{0:0.00}", 100.00), String.Format("{0:0.00}", 100.00));
+                double monto = Double.Parse(lbMonto.Text);
+                monto += 100;
+                lbMonto.Text = monto.ToString("0.00");
+            }
+        }
+
+        private void add200(object sender, EventArgs e)
+        {
+            Boolean encontrado = false;
+            for (int i = dgvSaldo.Rows.Count - 1; i > -1; i--)
+            {
+                if (dgvSaldo.Rows[i].Cells["nombre"].Value.ToString().Equals("saldo 200")) //Compare name
+                {
+                    int x = Int32.Parse(dgvSaldo.Rows[i].Cells["cantidad"].Value.ToString());
+                    double nuevoTotal = Double.Parse(dgvSaldo.Rows[i].Cells["precio"].Value.ToString());
+                    nuevoTotal = (x + 1) * nuevoTotal;
+                    dgvSaldo.Rows[i].Cells["cantidad"].Value = x + 1;
+                    dgvSaldo.Rows[i].Cells["total"].Value = nuevoTotal;
+                    double monto = Double.Parse(lbMonto.Text) + 200;
+                    lbMonto.Text = monto.ToString("0.00");
+                    encontrado = true;
+                    dgvSaldo.Rows[i].Selected = true;
+                    i = 0;
+                }
+            }
+            if (encontrado == false)
+            {
+                dgvSaldo.Rows.Add(0, 1,"saldo 200",  String.Format("{0:0.00}", 200.00), String.Format("{0:0.00}", 200.00));
+                double monto = Double.Parse(lbMonto.Text);
+                monto += 200;
+                lbMonto.Text = monto.ToString("0.00");
+            }
+            
+        }
+
+        private void add300(object sender, EventArgs e)
+        {
+            Boolean encontrado = false;
+            for (int i = dgvSaldo.Rows.Count - 1; i > -1; i--)
+            {
+                if (dgvSaldo.Rows[i].Cells["nombre"].Value.ToString().Equals("saldo 300")) //Compare name
+                {
+                    int x = Int32.Parse(dgvSaldo.Rows[i].Cells["cantidad"].Value.ToString());
+                    double nuevoTotal = Double.Parse(dgvSaldo.Rows[i].Cells["precio"].Value.ToString());
+                    nuevoTotal = (x + 1) * nuevoTotal;
+                    dgvSaldo.Rows[i].Cells["cantidad"].Value = x + 1;
+                    dgvSaldo.Rows[i].Cells["total"].Value = nuevoTotal;
+                    double monto = Double.Parse(lbMonto.Text) + 300;
+                    lbMonto.Text = monto.ToString("0.00");
+
+                    encontrado = true;
+                    dgvSaldo.Rows[i].Selected = true;
+                    i = 0;
+                }
+            }
+            if (encontrado == false)
+            {
+                dgvSaldo.Rows.Add(0, 1,"saldo 300",  String.Format("{0:0.00}", 300.00), String.Format("{0:0.00}", 300.00));
+                double monto = Double.Parse(lbMonto.Text);
+                monto += 300;
+                lbMonto.Text = monto.ToString("0.00");
+            }
+           
+        }
+
         private void cancelSaldos(object sender, EventArgs e)
         { //Cancelar y mostrar los 3 botones
-
+            dgvSaldo.Visible = false;
+            btn100.Visible = true;
+            btn200.Visible = true;
+            btn300.Visible = true;
+             btnOK.Click -= this.showPhone; //Pongo el método que quiero que ejecute
+            btnOK.Click += this.showSaldos; //Quito el método que ya no vamos a utilizar
+            btnCancel.Click -= this.cancelSaldos;
+            btnCancel.Click += this.btnCancel_Click;
+            dgvSaldo.Rows.Clear();
         }
 
         private void showPhone(object sender, EventArgs e)
         { //Mostrar el input de teléfono
+            dgvSaldo.Visible = false;
+            tbNumTel.Visible = true;
+            tbNumTel2.Visible = true;
+            lbNum1.Visible = true;
+            lbNum2.Visible = true;
+             btnOK.Click -= this.showPhone; //Pongo el método que quiero que ejecute
+            btnOK.Click += this.confirmPhone; //Quito el método que ya no vamos a utilizar
+            btnCancel.Click += this.cancelPhone;
+            btnCancel.Click -= this.cancelSaldos;
+        }
 
+        private void confirmPhone(object sender, EventArgs e)
+        {
+            if (tbNumTel.Text != "" && tbNumTel2.Text != "")
+            {
+                if (tbNumTel.Text == tbNumTel2.Text)
+                {
+                    string message = "Salgo agregado correctamente";  
+                    string title = "Exito";  
+                    MessageBox.Show(message, title);
+                    resetPanelSaldo();
+                } else
+                {
+                    string message = "Los numeros no son iguales";  
+                    string title = "Exito";  
+                    MessageBox.Show(message, title);
+                }
+                
+            } else
+            {
+                string message = "Favor de llenar todos los campos";  
+                string title = "Error";  
+                MessageBox.Show(message, title);
+            }
         }
 
         private void cancelPhone(object sender, EventArgs e)
         { //Volver al DGV
+            dgvSaldo.Visible = true;
+            tbNumTel.Visible = false;
+            tbNumTel2.Visible = false;
+            lbNum1.Visible = false;
+            lbNum2.Visible = false;
+            tbNumTel.Text = "";
+            tbNumTel2.Text = "";
+            btnOK.Click += this.showPhone;
+            btnOK.Click -= this.confirmPhone;
+            btnCancel.Click -= this.cancelPhone;
+            btnCancel.Click += this.cancelSaldos;
+        }
 
+        private void resetPanelSaldo()
+        {
+            tbNumTel.Visible = false;
+            tbNumTel2.Visible = false;
+            lbNum1.Visible = false;
+            lbNum2.Visible = false;
+            tbNumTel.Text = "";
+            tbNumTel2.Text = "";
+            btn100.Visible = true;
+            btn200.Visible = true;
+            btn300.Visible = true;
+            btnCancel.Click -= this.cancelPhone;
+            btnCancel.Click += this.btnCancel_Click;
+            btnOK.Click -= this.confirmPhone;
+            btnOK.Click += showSaldos;
+            dgvSaldo.Rows.Clear();
+            panelSaldo.Visible = false;
         }
 
         private void finishPhoneTransaction(object sender, EventArgs e)

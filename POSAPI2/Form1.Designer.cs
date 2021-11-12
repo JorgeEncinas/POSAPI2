@@ -44,6 +44,10 @@
             this.dgv1 = new System.Windows.Forms.DataGridView();
             this.labelTotal = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.dgvSaldo = new System.Windows.Forms.DataGridView();
+            this.btn100 = new System.Windows.Forms.Button();
+            this.btn200 = new System.Windows.Forms.Button();
+            this.btn300 = new System.Windows.Forms.Button();
             this.panelSaldo = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
@@ -172,7 +176,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 5;
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Cancelado";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -261,6 +265,7 @@
             this.btn100.Tag = "100";
             this.btn100.Text = "$100.00";
             this.btn100.UseVisualStyleBackColor = true;
+            this.btn100.Click += new System.EventHandler(this.add100);
             // 
             // btn200
             // 
@@ -271,6 +276,7 @@
             this.btn200.Tag = "200";
             this.btn200.Text = "$200.00";
             this.btn200.UseVisualStyleBackColor = true;
+            this.btn200.Click += new System.EventHandler(this.add200);
             // 
             // btn300
             // 
@@ -281,6 +287,7 @@
             this.btn300.Tag = "300";
             this.btn300.Text = "$300.00";
             this.btn300.UseVisualStyleBackColor = true;
+            this.btn300.Click += new System.EventHandler(this.add300);
             // 
             // btnChSaldo
             // 
@@ -374,7 +381,7 @@
             this.lbMonto.Name = "lbMonto";
             this.lbMonto.Size = new System.Drawing.Size(100, 29);
             this.lbMonto.TabIndex = 9;
-            this.lbMonto.Text = "lbMonto";
+            this.lbMonto.Text = "0.00";
             this.lbMonto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // namelb
