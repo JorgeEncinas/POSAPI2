@@ -31,23 +31,25 @@ namespace POSAPI2
                 if (Regex.IsMatch(usertb.Text, @"^[a-zA-Z0-9]+$") && Regex.IsMatch(passwdtb.Text, @"^[a-zA-Z0-9]+$"))
                 {
                     String passwd = dbconn.GetSHA256(passwdtb.Text);
+                    //dbconn.InsertEncryptedPass(usertb.Text, passwdtb.Text);
                     MySqlDataReader result = dbconn.CompareCredentials(usertb.Text, passwd);
-                    //dbconn.InsertEncryptedPass(usertb.Text,passwdtb.Text);
                     
                     if (result != null & result.HasRows)
                     {
                         errorlb.Text = "";
                         result.Read();
                         name = result.GetString(0) + " " + result.GetString(1) + " " + result.GetString(2);
+                        int userType = Convert.ToInt32(result.GetString(3));
+                        int userID = Convert.ToInt32(result.GetString(4));
                         this.Hide();
-                        if (result.GetString(11).Equals("1"))
+                        if (userType == 1)
                         {
                             Reportes poswindow = new Reportes();
                             poswindow.ShowDialog();
                         }
                         else
                         {
-                            Form1 poswindow = new Form1();
+                            Form1 poswindow = new Form1(userID, name);
                             poswindow.ShowDialog();
                         }
                         this.Show();
@@ -116,6 +118,9 @@ namespace POSAPI2
             loginbtn.Height = 30;
             loginbtn.Font = new Font("Times new Roman", 14F, FontStyle.Bold);
             loginbtn.Location = new Point(Convert.ToInt32(this.Width * 0.50 - loginbtn.Width * 0.50), Convert.ToInt32(this.Height * 0.80));
+            btnSalir.Location = new Point(Convert.ToInt32((this.Width * 0.50) - (btnSalir.Width * 0.50)),
+                                          Convert.ToInt32(loginbtn.Location.Y + loginbtn.Height + 10));
+            btnSalir.Font = new Font("Times new Roman", 14F, FontStyle.Bold);
         }
 
         private void Login_Load(object sender, EventArgs e)
@@ -139,7 +144,7 @@ namespace POSAPI2
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
         }

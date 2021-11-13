@@ -12,7 +12,7 @@ namespace POSAPI2
 {
     class DBConnection
     {
-        private string connLocal = "server=127.0.0.1; user=root; database=verificador_de_precios; SSL mode=none";
+        private string connLocal = "server=127.0.0.1; user=root; database=verpres3; SSL mode=none";
         private MySqlConnection mySqlConn;
 
         public DBConnection()
@@ -133,7 +133,7 @@ namespace POSAPI2
             try
             {
                 mySqlConn.Open();
-                String query = "SELECT * FROM usuarios WHERE username = '" + user + "' AND passwd = '" + encryptedPassword + "';";
+                String query = "SELECT nombre, ap_pat, ap_mat, permisosUsuario, clave FROM usuarios WHERE username = '" + user + "' AND passwd = '" + encryptedPassword + "';";
                 //MessageBox.Show(query);
                 MySqlCommand mySqlCommand = new MySqlCommand(query, mySqlConn);
                 reader = mySqlCommand.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
@@ -143,7 +143,6 @@ namespace POSAPI2
                 CloseConnection();
                 MessageBox.Show(ex.ToString());
             }
-            
             return reader;
         }
 
@@ -168,7 +167,7 @@ namespace POSAPI2
                 String encryptedpasswd = GetSHA256(password);
                 //MessageBox.Show(encryptedpasswd);
                 //String query = "INSERT INTO usuarios () VALUES ();";
-                String query = "UPDATE usuarios SET passwd = '" + encryptedpasswd + "' WHERE username =" + user + ";";
+                String query = "UPDATE usuarios SET passwd = '" + encryptedpasswd + "' WHERE username = '" + user + "';";
                 MySqlCommand mySqlCommand = new MySqlCommand(query, mySqlConn);
                 reader = mySqlCommand.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
             }
