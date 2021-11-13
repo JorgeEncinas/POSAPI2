@@ -47,6 +47,7 @@ namespace POSAPI2
             dgvSaldo.Columns["total"].DisplayIndex = 4;
             this.idUsuario = idUsuario;
             this.nombreUsuario = nombreUsuario;
+            namelb.Text = this.nombreUsuario;
         }
 
         private void GetTotal()
@@ -132,7 +133,7 @@ namespace POSAPI2
             placeOnSuperior(panelSaldo, btnOK, 0.75, 0.50, 0.90, 0.50);
             placeOnSuperior(panelSaldo, btnCancel, 0.90, 0.50, 0.90, 0.50);
             dgvSaldo.Visible = false;
-            namelb.Text = Login.name;
+            namelb.Location = new Point(lbAtiende.Location.X + lbAtiende.Width + 10, lbAtiende.Location.Y);
         }
 
         private void placeOnSuperior(Control superior, Control inferior, double sPercentageX, double iPercentageX, double sPercentageY, double iPercentageY)
@@ -401,7 +402,7 @@ namespace POSAPI2
             {
                 if (tbNumTel.Text == tbNumTel2.Text)
                 {
-                    string message = "Salgo agregado correctamente";  
+                    string message = "Saldo agregado correctamente";  
                     string title = "Exito";  
                     MessageBox.Show(message, title);
                     resetPanelSaldo();
@@ -418,6 +419,7 @@ namespace POSAPI2
                 string title = "Error";  
                 MessageBox.Show(message, title);
             }
+            resetPanelSaldo();
         }
 
         private void cancelPhone(object sender, EventArgs e)
@@ -455,6 +457,17 @@ namespace POSAPI2
             this.KeyPress += this.Form1_KeyPress;
             dgv1.Enabled = true;
             btnChSaldo.TabStop = true;
+            lbMonto.Text = "";
+        }
+
+        private void getTotalSaldo()
+        {
+            double totalSaldo = 0;
+            foreach (DataGridViewRow row in dgvSaldo.Rows)
+            {
+                totalSaldo += (Double.Parse(row.Cells[3].Value.ToString())) * (Double.Parse(row.Cells[1].Value.ToString()));
+            }
+            lbMonto.Text = totalSaldo.ToString();
         }
 
         private void dgvSaldo_KeyPress(object sender, KeyPressEventArgs e)
@@ -465,10 +478,12 @@ namespace POSAPI2
                 MessageBox.Show($"Se eliminará el producto {item.Cells[2].Value.ToString()}");
                 double saldoUnitario = Convert.ToDouble(item.Cells[0].Value);
                 double monto2 = Double.Parse(lbMonto.Text) - saldoUnitario;
+                lbMonto.Text = monto2.ToString();
                 int itemQuantity = Convert.ToInt32(item.Cells[1].Value);
                 if (itemQuantity > 1)
                 {
                     item.Cells[1].Value = itemQuantity - 1;
+                    item.Cells[4].Value = (itemQuantity - 1) * saldoUnitario;
                 }
                 else
                 {
@@ -484,6 +499,7 @@ namespace POSAPI2
                     dgvSaldo.Rows[nuevoIndice].Selected = true;
                     dgvSaldo.Rows.RemoveAt(item.Index);
                 }
+                //getTotalSaldo();
             }
 
         }
