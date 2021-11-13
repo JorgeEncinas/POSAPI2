@@ -340,6 +340,8 @@
             this.tbNumTel.Size = new System.Drawing.Size(100, 35);
             this.tbNumTel.TabIndex = 1;
             this.tbNumTel.Visible = false;
+            this.tbNumTel.MaxLength = 10;
+            this.tbNumTel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumTel1_KeyPress);
             // 
             // tbNumTel2
             // 
@@ -349,6 +351,8 @@
             this.tbNumTel2.Size = new System.Drawing.Size(100, 35);
             this.tbNumTel2.TabIndex = 2;
             this.tbNumTel2.Visible = false;
+            this.tbNumTel2.MaxLength = 10;
+            this.tbNumTel2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumTel1_KeyPress);
             // 
             // lbNum2
             // 

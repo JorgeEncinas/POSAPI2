@@ -119,6 +119,10 @@ namespace POSAPI2
             sizeToSuperior(panelSaldo, lbNum2, 0.90, 0.50);
             sizeToSuperior(panelSaldo, tbNumTel, 0.20, 0.33);
             sizeToSuperior(panelSaldo, tbNumTel2, 0.20, 0.53);
+            placeOnSuperior(panelSaldo, lbNum1, 0.50, 0.50, 0.35, 0.35);
+            placeOnSuperior(panelSaldo, lbNum2, 0.50, 0.50, 0.50, 0.50);
+            placeOnSuperior(panelSaldo, tbNumTel, 0.50, 0.50, 0.40, 0.40);
+            placeOnSuperior(panelSaldo, tbNumTel2, 0.50, 0.50, 0.55, 0.55);
             placeOnSuperior(panelSaldo, lbMontoTxt, 0.70, 0.0, 0.75, 0.50);
             placeOnSuperior(panelSaldo, lbMonto, 0.73, 0.0, 0.80, 0.50);
             placeOnSuperior(this, panelSaldo, 0.50, 0.50, 0.50, 0.50);
@@ -334,6 +338,14 @@ namespace POSAPI2
 
         }
 
+        private void tbNumTel1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) 
+             {
+                e.Handled = true;
+             }   
+        }
+
         private void btnAddSaldo_Click(object sender, EventArgs e, Control control)
         {
             Button temp = (Button)sender;
@@ -356,6 +368,8 @@ namespace POSAPI2
             panelSaldo.Visible = false;
             btnChSaldo.TabStop = true;
             btnOK.Click += showSaldos;
+            lbMonto.Text = "0.00";
+            dgvSaldo.Rows.Clear();
         }
 
         private void showSaldos(object sender, EventArgs e)
@@ -468,36 +482,50 @@ namespace POSAPI2
             btnCancel.Click -= this.cancelSaldos;
             btnCancel.Click += this.btnCancel_Click;
             dgvSaldo.Rows.Clear();
+            lbMonto.Text = "0.00";
         }
 
         private void showPhone(object sender, EventArgs e)
         { //Mostrar el input de teléfono
-            dgvSaldo.Visible = false;
-            tbNumTel.Visible = true;
-            tbNumTel2.Visible = true;
-            lbNum1.Visible = true;
-            lbNum2.Visible = true;
-             btnOK.Click -= this.showPhone; //Pongo el método que quiero que ejecute
-            btnOK.Click += this.confirmPhone; //Quito el método que ya no vamos a utilizar
-            btnCancel.Click += this.cancelPhone;
-            btnCancel.Click -= this.cancelSaldos;
+            if (lbMonto.Text == "0.00")
+            {
+                 MessageBox.Show("Tienes que agregar un saldo", "Error");
+            } else
+            {
+                dgvSaldo.Visible = false;
+                tbNumTel.Visible = true;
+                tbNumTel2.Visible = true;
+                lbNum1.Visible = true;
+                lbNum2.Visible = true;
+                 btnOK.Click -= this.showPhone; //Pongo el método que quiero que ejecute
+                btnOK.Click += this.confirmPhone; //Quito el método que ya no vamos a utilizar
+                btnCancel.Click += this.cancelPhone;
+                btnCancel.Click -= this.cancelSaldos;
+            }
+            
         }
 
         private void confirmPhone(object sender, EventArgs e)
         {
             if (tbNumTel.Text != "" && tbNumTel2.Text != "")
-            {
-                if (tbNumTel.Text == tbNumTel2.Text)
+            {   
+                if(tbNumTel.Text.Length == 10 && tbNumTel2.Text.Length == 10)
                 {
-                    string message = "Salgo agregado correctamente";  
-                    string title = "Exito";  
-                    MessageBox.Show(message, title);
-                    resetPanelSaldo();
+                    if (tbNumTel.Text == tbNumTel2.Text)
+                    {
+                        string message = "Salgo agregado correctamente";  
+                        string title = "Exito";  
+                        MessageBox.Show(message, title);
+                        resetPanelSaldo();
+                    } else
+                    {
+                        string message = "Los numeros no son iguales";  
+                        string title = "Exito";  
+                        MessageBox.Show(message, title);
+                    }
                 } else
                 {
-                    string message = "Los numeros no son iguales";  
-                    string title = "Exito";  
-                    MessageBox.Show(message, title);
+                    MessageBox.Show("Verificar que los dos campos contengan 10 digitos", "Error");
                 }
                 
             } else
