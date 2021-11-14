@@ -304,16 +304,6 @@ namespace POSAPI2
              }   
         }
 
-        private void btnAddSaldo_Click(object sender, EventArgs e, Control control)
-        {
-            Button temp = (Button)sender;
-            int saldo = 0;
-            if(temp!= null)
-            {
-                saldo = Convert.ToInt32(temp.Tag);
-            }
-        }
-
         private void addSaldo(object sender, EventArgs e)
         {
             Button btn = sender as Button;
@@ -351,6 +341,7 @@ namespace POSAPI2
             btnChSaldo.TabStop = false;
             this.KeyPress -= this.Form1_KeyPress;
             dgv1.Enabled = false;
+            btnChSaldo.Enabled = false;
         }
 
         private void btnCancelButtons(object sender, EventArgs e)
@@ -359,6 +350,10 @@ namespace POSAPI2
             btnChSaldo.TabStop = true;
             this.KeyPress += Form1_KeyPress;
             dgv1.Enabled = true;
+            btnChSaldo.Enabled = true;
+            lbMonto.Text = "0.00";
+            dgvSaldo.Rows.Clear();
+            btnChSaldo.TabStop = true;
         }
 
         private void showDGV(object sender, EventArgs e)
@@ -399,12 +394,27 @@ namespace POSAPI2
                 tbNumTel2.Visible = true;
                 lbNum1.Visible = true;
                 lbNum2.Visible = true;
-                 btnOK.Click -= this.showPhone; //Pongo el método que quiero que ejecute
-                btnOK.Click += this.confirmPhone; //Quito el método que ya no vamos a utilizar
+                btnOK.Click -= this.showPhone;
+                btnOK.Click += this.confirmPhone;
                 btnCancel.Click += this.cancelPhone;
                 btnCancel.Click -= this.cancelDGV;
             }
             
+        }
+
+        private void cancelPhone(object sender, EventArgs e)
+        { //Volver al DGV
+            dgvSaldo.Visible = true;
+            tbNumTel.Visible = false;
+            tbNumTel2.Visible = false;
+            lbNum1.Visible = false;
+            lbNum2.Visible = false;
+            tbNumTel.Text = "";
+            tbNumTel2.Text = "";
+            btnOK.Click += this.showPhone;
+            btnOK.Click -= this.confirmPhone;
+            btnCancel.Click -= this.cancelPhone;
+            btnCancel.Click += this.cancelDGV;
         }
 
         private void confirmPhone(object sender, EventArgs e)
@@ -438,21 +448,6 @@ namespace POSAPI2
             }
         }
 
-        private void cancelPhone(object sender, EventArgs e)
-        { //Volver al DGV
-            dgvSaldo.Visible = true;
-            tbNumTel.Visible = false;
-            tbNumTel2.Visible = false;
-            lbNum1.Visible = false;
-            lbNum2.Visible = false;
-            tbNumTel.Text = "";
-            tbNumTel2.Text = "";
-            btnOK.Click += this.showPhone;
-            btnOK.Click -= this.confirmPhone;
-            btnCancel.Click -= this.cancelPhone;
-            btnCancel.Click += this.cancelDGV;
-        }
-
         private void resetPanelSaldo()
         {
             tbNumTel.Visible = false;
@@ -474,6 +469,7 @@ namespace POSAPI2
             dgv1.Enabled = true;
             btnChSaldo.TabStop = true;
             lbMonto.Text = "0.00";
+            btnChSaldo.Enabled = true;
         }
 
         private void getTotalSaldo()
