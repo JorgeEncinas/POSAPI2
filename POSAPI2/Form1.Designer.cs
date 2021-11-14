@@ -28,16 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv1 = new System.Windows.Forms.DataGridView();
             this.labelTotal = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.dgvSaldo = new System.Windows.Forms.DataGridView();
             this.btn100 = new System.Windows.Forms.Button();
             this.btn200 = new System.Windows.Forms.Button();
@@ -52,7 +50,6 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.lbTotalName = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pbLogo = new System.Windows.Forms.PictureBox();
             this.btnChSaldo = new System.Windows.Forms.Button();
             this.lbAtiende = new System.Windows.Forms.Label();
@@ -69,29 +66,29 @@
             this.dgv1.AllowUserToDeleteRows = false;
             this.dgv1.AllowUserToResizeColumns = false;
             this.dgv1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgv1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgv1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgv1.BackgroundColor = System.Drawing.Color.White;
             this.dgv1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgv1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv1.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv1.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgv1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.dgv1.Location = new System.Drawing.Point(64, 140);
             this.dgv1.MultiSelect = false;
@@ -113,44 +110,35 @@
             this.labelTotal.TabIndex = 1;
             this.labelTotal.Text = "label1";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(165, 582);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.Visible = false;
-            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
-            // 
             // dgvSaldo
             // 
             this.dgvSaldo.AllowUserToAddRows = false;
             this.dgvSaldo.AllowUserToDeleteRows = false;
             this.dgvSaldo.AllowUserToResizeColumns = false;
             this.dgvSaldo.AllowUserToResizeRows = false;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgvSaldo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgvSaldo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvSaldo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvSaldo.BackgroundColor = System.Drawing.Color.White;
             this.dgvSaldo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvSaldo.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSaldo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSaldo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvSaldo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSaldo.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSaldo.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvSaldo.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.dgvSaldo.Location = new System.Drawing.Point(15, 51);
             this.dgvSaldo.MultiSelect = false;
@@ -267,30 +255,33 @@
             // 
             this.tbNumTel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbNumTel2.Location = new System.Drawing.Point(416, 132);
+            this.tbNumTel2.MaxLength = 10;
             this.tbNumTel2.Name = "tbNumTel2";
             this.tbNumTel2.Size = new System.Drawing.Size(100, 35);
             this.tbNumTel2.TabIndex = 2;
             this.tbNumTel2.Visible = false;
+            this.tbNumTel2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumTel1_KeyPress);
             // 
             // tbNumTel
             // 
             this.tbNumTel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbNumTel.Location = new System.Drawing.Point(416, 63);
+            this.tbNumTel.MaxLength = 10;
             this.tbNumTel.Name = "tbNumTel";
             this.tbNumTel.Size = new System.Drawing.Size(100, 35);
             this.tbNumTel.TabIndex = 1;
             this.tbNumTel.Visible = false;
-            this.tbNumTel.MaxLength = 10;
             this.tbNumTel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumTel1_KeyPress);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(132, 173);
+            this.btnCancel.BackColor = System.Drawing.SystemColors.Control;
+            this.btnCancel.Location = new System.Drawing.Point(135, 173);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 5;
-            this.btnCancel.Text = "Cancelado";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.TabIndex = 10;
+            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancelButtons);
             // 
             // btnOK
@@ -312,17 +303,6 @@
             this.lbTotalName.Size = new System.Drawing.Size(83, 31);
             this.lbTotalName.TabIndex = 4;
             this.lbTotalName.Text = "Total:";
-            // 
-            // timer1
-            // 
-            this.tbNumTel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbNumTel2.Location = new System.Drawing.Point(416, 132);
-            this.tbNumTel2.Name = "tbNumTel2";
-            this.tbNumTel2.Size = new System.Drawing.Size(100, 35);
-            this.tbNumTel2.TabIndex = 2;
-            this.tbNumTel2.Visible = false;
-            this.tbNumTel2.MaxLength = 10;
-            this.tbNumTel2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumTel1_KeyPress);
             // 
             // pbLogo
             // 
@@ -377,7 +357,6 @@
             this.Controls.Add(this.lbTotalName);
             this.Controls.Add(this.panelSaldo);
             this.Controls.Add(this.pbLogo);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.dgv1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -402,12 +381,10 @@
         private System.Windows.Forms.DataGridView dgv1;
         private System.Windows.Forms.PictureBox pbLogo;
         private System.Windows.Forms.Label labelTotal;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Panel panelSaldo;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Label lbTotalName;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.DataGridView dgvSaldo;
         private System.Windows.Forms.Button btn300;
         private System.Windows.Forms.Button btn200;

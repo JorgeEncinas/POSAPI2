@@ -103,7 +103,6 @@ namespace POSAPI2
             lbTotalName.Location = new Point(Convert.ToInt32(this.Width * 0.69), Convert.ToInt32(this.Height*0.17));
             labelTotal.Location = new Point(Convert.ToInt32(this.Width * 0.89), Convert.ToInt32(this.Height*0.17));
             labelTotal.Text = "";
-            textBox1.Location = new Point(Convert.ToInt32(this.Width * 0.05), Convert.ToInt32(this.Height*0.08));
             sizeToSuperior(this, btnChSaldo, 0.10, 0.10);
             btnChSaldo.Location = new Point(Convert.ToInt32(this.Width * 0.88),
                                             Convert.ToInt32(this.Height * 0.88));
@@ -120,13 +119,14 @@ namespace POSAPI2
             dgvSaldo.Columns["precio"].Width = Convert.ToInt32(dgvSaldo.Width * 0.20);
             dgvSaldo.Columns["total"].Width = Convert.ToInt32(dgvSaldo.Width * 0.20);
             sizeToSuperior(panelSaldo, lbNum1, 0.90, 0.30);
-            sizeToSuperior(panelSaldo, lbNum2, 0.90, 0.50);
-            sizeToSuperior(panelSaldo, tbNumTel, 0.20, 0.33);
-            sizeToSuperior(panelSaldo, tbNumTel2, 0.20, 0.53);
+            sizeToSuperior(panelSaldo, lbNum2, 0.90, 0.30);
+            sizeToSuperior(panelSaldo, tbNumTel, 0.20, 0.30);
+            sizeToSuperior(panelSaldo, tbNumTel2, 0.20, 0.30);
             placeOnSuperior(panelSaldo, lbNum1, 0.50, 0.50, 0.35, 0.35);
             placeOnSuperior(panelSaldo, lbNum2, 0.50, 0.50, 0.50, 0.50);
             placeOnSuperior(panelSaldo, tbNumTel, 0.50, 0.50, 0.40, 0.40);
             placeOnSuperior(panelSaldo, tbNumTel2, 0.50, 0.50, 0.55, 0.55);
+
             placeOnSuperior(panelSaldo, lbMontoTxt, 0.70, 0.0, 0.75, 0.50);
             placeOnSuperior(panelSaldo, lbMonto, 0.73, 0.0, 0.80, 0.50);
             placeOnSuperior(this, panelSaldo, 0.50, 0.50, 0.50, 0.50);
@@ -269,6 +269,7 @@ namespace POSAPI2
                     if (itemQuantity > 1)
                     {
                         item.Cells[1].Value = itemQuantity - 1;
+                        item.Cells[4].Value = Convert.ToDouble(item.Cells[3].Value) * (itemQuantity - 1);
                     }
                     else
                     {
@@ -295,16 +296,6 @@ namespace POSAPI2
             this.Focus();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            //Console.WriteLine(productKey);
-        }
-
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
         private void tbNumTel1_KeyPress(object sender, KeyPressEventArgs e)
         {
              if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) 
@@ -325,35 +316,9 @@ namespace POSAPI2
 
         private void addSaldo(object sender, EventArgs e)
         {
-            panelSaldo.Visible = true;
-            panelSaldo.BringToFront();
-            btnChSaldo.TabStop = false;
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        { //Cancelar
-            panelSaldo.Visible = false;
-            btnChSaldo.TabStop = true;
-            btnOK.Click += showSaldos;
-            lbMonto.Text = "0.00";
-            dgvSaldo.Rows.Clear();
-        }
-
-        private void showSaldos(object sender, EventArgs e)
-        { //Mostrar los saldos
-            dgvSaldo.Visible = true;
-            btn100.Visible = false;
-            btn200.Visible = false;
-            btn300.Visible = false;
-            btnOK.Click += this.showPhone; //Pongo el método que quiero que ejecute
-            btnOK.Click -= this.showSaldos; //Quito el método que ya no vamos a utilizar
-            btnCancel.Click += this.cancelSaldos;
-            btnCancel.Click -= this.btnCancel_Click;
-        }
-
-        private void add100(object sender, EventArgs e)
-        {
-            Boolean encontrado = false;
+            Button btn = sender as Button;
+            double btnValue = Convert.ToDouble(btn.Tag);
+            bool encontrado = false;
             for (int i = dgvSaldo.Rows.Count - 1; i > -1; i--)
             {
                 if (Convert.ToDouble(dgvSaldo.Rows[i].Cells["id"].Value) == btnValue) //Compare name
@@ -437,7 +402,7 @@ namespace POSAPI2
                  btnOK.Click -= this.showPhone; //Pongo el método que quiero que ejecute
                 btnOK.Click += this.confirmPhone; //Quito el método que ya no vamos a utilizar
                 btnCancel.Click += this.cancelPhone;
-                btnCancel.Click -= this.cancelSaldos;
+                btnCancel.Click -= this.cancelDGV;
             }
             
         }
@@ -450,7 +415,7 @@ namespace POSAPI2
                 {
                     if (tbNumTel.Text == tbNumTel2.Text)
                     {
-                        string message = "Salgo agregado correctamente";  
+                        string message = "Saldo agregado correctamente";  
                         string title = "Exito";  
                         MessageBox.Show(message, title);
                         resetPanelSaldo();
@@ -471,7 +436,6 @@ namespace POSAPI2
                 string title = "Error";  
                 MessageBox.Show(message, title);
             }
-            resetPanelSaldo();
         }
 
         private void cancelPhone(object sender, EventArgs e)
@@ -509,7 +473,7 @@ namespace POSAPI2
             this.KeyPress += this.Form1_KeyPress;
             dgv1.Enabled = true;
             btnChSaldo.TabStop = true;
-            lbMonto.Text = "";
+            lbMonto.Text = "0.00";
         }
 
         private void getTotalSaldo()
