@@ -17,8 +17,10 @@ namespace POSAPI2
         private double change = 0;
         private DBConnection dbconn;
         private string productKey;
+        private int idUsuario;
+        private string nombreUsuario;
 
-        public Form1()
+        public Form1(int idUsuario, string nombreUsuario)
         {
             InitializeComponent();
             dbconn = new DBConnection();
@@ -43,7 +45,9 @@ namespace POSAPI2
             dgvSaldo.Columns["nombre"].DisplayIndex = 2;
             dgvSaldo.Columns["precio"].DisplayIndex = 3;
             dgvSaldo.Columns["total"].DisplayIndex = 4;
-
+            this.idUsuario = idUsuario;
+            this.nombreUsuario = nombreUsuario;
+            namelb.Text = this.nombreUsuario;
         }
 
         private void GetTotal()
@@ -54,7 +58,7 @@ namespace POSAPI2
                 total += (Double.Parse(row.Cells[3].Value.ToString())) * (Double.Parse(row.Cells[1].Value.ToString()));
             }
             lbTotalName.Text = "Total:";
-            labelTotal.Text = total.ToString();  
+            labelTotal.Text = total.ToString();
       }
 
         private double GetChange(double payment)
@@ -123,6 +127,9 @@ namespace POSAPI2
             placeOnSuperior(panelSaldo, lbNum2, 0.50, 0.50, 0.50, 0.50);
             placeOnSuperior(panelSaldo, tbNumTel, 0.50, 0.50, 0.40, 0.40);
             placeOnSuperior(panelSaldo, tbNumTel2, 0.50, 0.50, 0.55, 0.55);
+            sizeToSuperior(panelSaldo, lbNum2, 0.90, 0.30);
+            sizeToSuperior(panelSaldo, tbNumTel, 0.20, 0.30);
+            sizeToSuperior(panelSaldo, tbNumTel2, 0.20, 0.30);
             placeOnSuperior(panelSaldo, lbMontoTxt, 0.70, 0.0, 0.75, 0.50);
             placeOnSuperior(panelSaldo, lbMonto, 0.73, 0.0, 0.80, 0.50);
             placeOnSuperior(this, panelSaldo, 0.50, 0.50, 0.50, 0.50);
@@ -133,11 +140,7 @@ namespace POSAPI2
             placeOnSuperior(panelSaldo, btnOK, 0.75, 0.50, 0.90, 0.50);
             placeOnSuperior(panelSaldo, btnCancel, 0.90, 0.50, 0.90, 0.50);
             dgvSaldo.Visible = false;
-            //panelPay.Width = Convert.ToInt32(this.Width * 0.4);
-            //panelPay.Height = Convert.ToInt32(this.Height * 0.4);
-            //centerElementAtY(this, panelPay, 0.50, 0.50);
-
-            namelb.Text = Login.name;
+            namelb.Location = new Point(lbAtiende.Location.X + lbAtiende.Width + 10, lbAtiende.Location.Y);
         }
 
         private void placeOnSuperior(Control superior, Control inferior, double sPercentageX, double iPercentageX, double sPercentageY, double iPercentageY)
@@ -158,22 +161,6 @@ namespace POSAPI2
             setLayout();
         }
 
-        private void showPanel(string msg)
-        {
-            //Step 1.- Change msg
-            //lbMsg.Text = msg;
-            //Step 2.- Re-center msg
-            //centerElementAtY(panelSueldo, lbMsg, 0.30, 0.50);
-            //Step 3.- Set which buttons to show according to parameters
-            //Step 4.- Return a boolean value or set an action for the buttons
-            //Step 5.- Set panel Visible
-        }
-
-        private void dgv1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
             
@@ -181,7 +168,7 @@ namespace POSAPI2
             {
                 if (!productKey.Equals(""))
                 {
-                    String query = "SELECT * FROM productos WHERE producto_codigo =" + productKey;
+                    String query = "SELECT * FROM productos WHERE clave =" + productKey;
                     try
                     {
                         MySqlDataReader result = dbconn.queryProduct(query);
@@ -200,7 +187,7 @@ namespace POSAPI2
                                     dgv1.Rows[i].Cells["total"].Value = nuevoTotal;
                                     encontrado = true;
                                     dgv1.Rows[i].Selected = true;
-                                    i = 0;
+                                    i = -1;
                                 }
                             }
                             if (encontrado == false)
@@ -233,17 +220,43 @@ namespace POSAPI2
                     {
                         e.Handled = true;
                         //MessageBox.Show($"¿Completar la transacción? {textBox1.Text} {total} {Environment.NewLine} ");
-                        MessageBox.Show($"¿Completar la transacción? {productKey} {total} {Environment.NewLine} ",
+                        DialogResult result = MessageBox.Show($"¿Completar la transacción? {productKey} {total} {Environment.NewLine} ",
                                         "Título",
                                         MessageBoxButtons.OKCancel);
-                        GetChange(Double.Parse(productKey)).ToString();
-                        productKey = "";
-                        dgv1.Rows.Clear();
+                        if (result == DialogResult.OK)
+                        {
+                            double recibido = 0;
+                            if (Double.TryParse(productKey, out recibido))
+                            {
+                                if (recibido >= total)
+                                {
+                                    GetChange(recibido);
+                                    string queryInsert = "INSERT INTO ventas(idUsuario, total, recibido) VALUES(" + idUsuario + ", " + total + ", " + recibido + ")";
+                                    dbconn.executeNonQuery(queryInsert);
+                                    string queryID = "SELECT LAST_INSERT_ID()";
+                                    int ventaID = dbconn.executeScalar(queryID);
+                                    string queryProducto = "";
+                                    foreach (DataGridViewRow row in dgv1.Rows)
+                                    {
+                                        queryProducto = "INSERT INTO ventadetalle(idVenta, idProducto, cantidad) VALUES(" + ventaID + ", " + row.Cells["id"].Value.ToString() + ", " + row.Cells["cantidad"].Value.ToString() + ")";
+                                        dbconn.executeNonQuery(queryProducto);
+                                    }
+                                    dgv1.Rows.Clear();
+                                    labelTotal.Text = "";
+                                } else
+                                {
+                                    MessageBox.Show("No le alcanza");
+                                }
+                                
+                            }
+                        } 
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Ha ocurrido un error al realizar el pago y se ha abortado la operación.");
+                        //MessageBox.Show("Ha ocurrido un error al realizar el pago y se ha abortado la operación.");
+                        MessageBox.Show(ex.ToString());
                     }
+                    productKey = "";
                 }
                 
             }
@@ -277,49 +290,6 @@ namespace POSAPI2
                     GetTotal();
                     productKey = "";
                 }
-                if (dgvSaldo.Rows.Count > 0)
-                {
-                    //showPanel("¿Seguro que desea eliminar este producto?");
-                    DataGridViewRow item = dgvSaldo.SelectedRows[0];
-                    MessageBox.Show($"Se eliminará el producto {item.Cells[2].Value.ToString()}");
-                    if(item.Cells[2].Value.ToString() == "saldo 100")
-                    {
-                        double monto = Double.Parse(lbMonto.Text) - 100;
-                        lbMonto.Text = monto.ToString("0.00");
-                    }
-                    if(item.Cells[2].Value.ToString() == "saldo 200")
-                    {
-                        double monto = Double.Parse(lbMonto.Text) - 200;
-                        lbMonto.Text = monto.ToString("0.00");
-                    }
-                    if(item.Cells[2].Value.ToString() == "saldo 300")
-                    {
-                        double monto = Double.Parse(lbMonto.Text) - 300;
-                        lbMonto.Text = monto.ToString("0.00");
-                    }
-                    int itemQuantity = Convert.ToInt32(item.Cells[1].Value);
-                    if (itemQuantity > 1)
-                    {
-                        item.Cells[1].Value = itemQuantity - 1;
-                    }
-                    else
-                    {
-                        int nuevoIndice;
-                        if (item.Index == 0)
-                        {
-                            nuevoIndice = item.Index;
-                        }
-                        else
-                        {
-                            nuevoIndice = item.Index - 1;
-                        }
-                        dgvSaldo.Rows[nuevoIndice].Selected = true;
-                        dgvSaldo.Rows.RemoveAt(item.Index);
-                    }
-                    GetTotal();
-                    productKey = "";
-                }
-                
             }
             else
             {
@@ -356,131 +326,75 @@ namespace POSAPI2
             }
         }
 
+        private void addSaldo(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            double btnValue = Convert.ToDouble(btn.Tag);
+            bool encontrado = false;
+            for (int i = dgvSaldo.Rows.Count - 1; i > -1; i--)
+            {
+                if (Convert.ToDouble(dgvSaldo.Rows[i].Cells["id"].Value) == btnValue) //Compare name
+                {
+                    int cantidad = Int32.Parse(dgvSaldo.Rows[i].Cells["cantidad"].Value.ToString());
+                    //double nuevoTotal = Double.Parse(dgvSaldo.Rows[i].Cells["precio"].Value.ToString());
+                    double nuevoTotal = (cantidad + 1) * btnValue;
+                    dgvSaldo.Rows[i].Cells["cantidad"].Value = cantidad + 1;
+                    dgvSaldo.Rows[i].Cells["total"].Value = nuevoTotal;
+                    double monto = Double.Parse(lbMonto.Text) + btnValue;
+                    lbMonto.Text = monto.ToString("0.00");
+                    encontrado = true;
+                    dgvSaldo.Rows[i].Selected = true;
+                    i = -1;
+                }
+            }
+            if (encontrado == false)
+            {
+                dgvSaldo.Rows.Add(Convert.ToInt32(btnValue), 1, "Saldo " + btnValue.ToString(), String.Format("{0:0.00}", btnValue), String.Format("{0:0.00}", btnValue));
+                double monto = Double.Parse(lbMonto.Text);
+                monto += btnValue;
+                lbMonto.Text = monto.ToString("0.00");
+            }
+        }
+
         private void btnChSaldo_Click(object sender, EventArgs e)
         {
             panelSaldo.Visible = true;
             panelSaldo.BringToFront();
             btnChSaldo.TabStop = false;
+            this.KeyPress -= this.Form1_KeyPress;
+            dgv1.Enabled = false;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnCancelButtons(object sender, EventArgs e)
         { //Cancelar
             panelSaldo.Visible = false;
             btnChSaldo.TabStop = true;
-            btnOK.Click += showSaldos;
-            lbMonto.Text = "0.00";
-            dgvSaldo.Rows.Clear();
+            this.KeyPress += Form1_KeyPress;
+            dgv1.Enabled = true;
         }
 
-        private void showSaldos(object sender, EventArgs e)
+        private void showDGV(object sender, EventArgs e)
         { //Mostrar los saldos
             dgvSaldo.Visible = true;
             btn100.Visible = false;
             btn200.Visible = false;
             btn300.Visible = false;
-            btnOK.Click += this.showPhone; //Pongo el método que quiero que ejecute
-            btnOK.Click -= this.showSaldos; //Quito el método que ya no vamos a utilizar
-            btnCancel.Click += this.cancelSaldos;
-            btnCancel.Click -= this.btnCancel_Click;
+            btnOK.Click += this.showPhone;
+            btnOK.Click -= this.showDGV;
+            btnCancel.Click += this.cancelDGV;
+            btnCancel.Click -= this.btnCancelButtons;
         }
 
-        private void add100(object sender, EventArgs e)
-        {
-            Boolean encontrado = false;
-            for (int i = dgvSaldo.Rows.Count - 1; i > -1; i--)
-            {
-                if (dgvSaldo.Rows[i].Cells["nombre"].Value.ToString().Equals("saldo 100")) //Compare name
-                {
-                    int x = Int32.Parse(dgvSaldo.Rows[i].Cells["cantidad"].Value.ToString());
-                    double nuevoTotal = Double.Parse(dgvSaldo.Rows[i].Cells["precio"].Value.ToString());
-                    nuevoTotal = (x + 1) * nuevoTotal;
-                    dgvSaldo.Rows[i].Cells["cantidad"].Value = x + 1;
-                    dgvSaldo.Rows[i].Cells["total"].Value = nuevoTotal;
-                    double monto = Double.Parse(lbMonto.Text) + 100;
-                    lbMonto.Text = monto.ToString("0.00");
-                    encontrado = true;
-                    dgvSaldo.Rows[i].Selected = true;
-                    i = 0;
-                }
-            }
-            if (encontrado == false)
-            {
-                dgvSaldo.Rows.Add(0, 1,"saldo 100",  String.Format("{0:0.00}", 100.00), String.Format("{0:0.00}", 100.00));
-                double monto = Double.Parse(lbMonto.Text);
-                monto += 100;
-                lbMonto.Text = monto.ToString("0.00");
-            }
-        }
-
-        private void add200(object sender, EventArgs e)
-        {
-            Boolean encontrado = false;
-            for (int i = dgvSaldo.Rows.Count - 1; i > -1; i--)
-            {
-                if (dgvSaldo.Rows[i].Cells["nombre"].Value.ToString().Equals("saldo 200")) //Compare name
-                {
-                    int x = Int32.Parse(dgvSaldo.Rows[i].Cells["cantidad"].Value.ToString());
-                    double nuevoTotal = Double.Parse(dgvSaldo.Rows[i].Cells["precio"].Value.ToString());
-                    nuevoTotal = (x + 1) * nuevoTotal;
-                    dgvSaldo.Rows[i].Cells["cantidad"].Value = x + 1;
-                    dgvSaldo.Rows[i].Cells["total"].Value = nuevoTotal;
-                    double monto = Double.Parse(lbMonto.Text) + 200;
-                    lbMonto.Text = monto.ToString("0.00");
-                    encontrado = true;
-                    dgvSaldo.Rows[i].Selected = true;
-                    i = 0;
-                }
-            }
-            if (encontrado == false)
-            {
-                dgvSaldo.Rows.Add(0, 1,"saldo 200",  String.Format("{0:0.00}", 200.00), String.Format("{0:0.00}", 200.00));
-                double monto = Double.Parse(lbMonto.Text);
-                monto += 200;
-                lbMonto.Text = monto.ToString("0.00");
-            }
-            
-        }
-
-        private void add300(object sender, EventArgs e)
-        {
-            Boolean encontrado = false;
-            for (int i = dgvSaldo.Rows.Count - 1; i > -1; i--)
-            {
-                if (dgvSaldo.Rows[i].Cells["nombre"].Value.ToString().Equals("saldo 300")) //Compare name
-                {
-                    int x = Int32.Parse(dgvSaldo.Rows[i].Cells["cantidad"].Value.ToString());
-                    double nuevoTotal = Double.Parse(dgvSaldo.Rows[i].Cells["precio"].Value.ToString());
-                    nuevoTotal = (x + 1) * nuevoTotal;
-                    dgvSaldo.Rows[i].Cells["cantidad"].Value = x + 1;
-                    dgvSaldo.Rows[i].Cells["total"].Value = nuevoTotal;
-                    double monto = Double.Parse(lbMonto.Text) + 300;
-                    lbMonto.Text = monto.ToString("0.00");
-
-                    encontrado = true;
-                    dgvSaldo.Rows[i].Selected = true;
-                    i = 0;
-                }
-            }
-            if (encontrado == false)
-            {
-                dgvSaldo.Rows.Add(0, 1,"saldo 300",  String.Format("{0:0.00}", 300.00), String.Format("{0:0.00}", 300.00));
-                double monto = Double.Parse(lbMonto.Text);
-                monto += 300;
-                lbMonto.Text = monto.ToString("0.00");
-            }
-           
-        }
-
-        private void cancelSaldos(object sender, EventArgs e)
+        private void cancelDGV(object sender, EventArgs e)
         { //Cancelar y mostrar los 3 botones
             dgvSaldo.Visible = false;
             btn100.Visible = true;
             btn200.Visible = true;
             btn300.Visible = true;
-             btnOK.Click -= this.showPhone; //Pongo el método que quiero que ejecute
-            btnOK.Click += this.showSaldos; //Quito el método que ya no vamos a utilizar
-            btnCancel.Click -= this.cancelSaldos;
-            btnCancel.Click += this.btnCancel_Click;
+             btnOK.Click -= this.showPhone;
+            btnOK.Click += this.showDGV;
+            btnCancel.Click -= this.cancelDGV;
+            btnCancel.Click += this.btnCancelButtons;
             dgvSaldo.Rows.Clear();
             lbMonto.Text = "0.00";
         }
@@ -534,6 +448,7 @@ namespace POSAPI2
                 string title = "Error";  
                 MessageBox.Show(message, title);
             }
+            resetPanelSaldo();
         }
 
         private void cancelPhone(object sender, EventArgs e)
@@ -548,7 +463,7 @@ namespace POSAPI2
             btnOK.Click += this.showPhone;
             btnOK.Click -= this.confirmPhone;
             btnCancel.Click -= this.cancelPhone;
-            btnCancel.Click += this.cancelSaldos;
+            btnCancel.Click += this.cancelDGV;
         }
 
         private void resetPanelSaldo()
@@ -563,15 +478,58 @@ namespace POSAPI2
             btn200.Visible = true;
             btn300.Visible = true;
             btnCancel.Click -= this.cancelPhone;
-            btnCancel.Click += this.btnCancel_Click;
+            btnCancel.Click += this.btnCancelButtons;
             btnOK.Click -= this.confirmPhone;
-            btnOK.Click += showSaldos;
+            btnOK.Click += showDGV;
             dgvSaldo.Rows.Clear();
             panelSaldo.Visible = false;
+            this.KeyPress += this.Form1_KeyPress;
+            dgv1.Enabled = true;
+            btnChSaldo.TabStop = true;
+            lbMonto.Text = "";
         }
 
-        private void finishPhoneTransaction(object sender, EventArgs e)
-        { //Terminar la transacción, limpiar el dgvSaldo, volver el panelSaldo al estado inicial.
+        private void getTotalSaldo()
+        {
+            double totalSaldo = 0;
+            foreach (DataGridViewRow row in dgvSaldo.Rows)
+            {
+                totalSaldo += (Double.Parse(row.Cells[3].Value.ToString())) * (Double.Parse(row.Cells[1].Value.ToString()));
+            }
+            lbMonto.Text = totalSaldo.ToString();
+        }
+
+        private void dgvSaldo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 8 && dgvSaldo.Rows.Count > 0)
+            {
+                DataGridViewRow item = dgvSaldo.SelectedRows[0];
+                MessageBox.Show($"Se eliminará el producto {item.Cells[2].Value.ToString()}");
+                double saldoUnitario = Convert.ToDouble(item.Cells[0].Value);
+                double monto2 = Double.Parse(lbMonto.Text) - saldoUnitario;
+                lbMonto.Text = monto2.ToString();
+                int itemQuantity = Convert.ToInt32(item.Cells[1].Value);
+                if (itemQuantity > 1)
+                {
+                    item.Cells[1].Value = itemQuantity - 1;
+                    item.Cells[4].Value = (itemQuantity - 1) * saldoUnitario;
+                }
+                else
+                {
+                    int nuevoIndice;
+                    if (item.Index == 0)
+                    {
+                        nuevoIndice = item.Index;
+                    }
+                    else
+                    {
+                        nuevoIndice = item.Index - 1;
+                    }
+                    dgvSaldo.Rows[nuevoIndice].Selected = true;
+                    dgvSaldo.Rows.RemoveAt(item.Index);
+                }
+                //getTotalSaldo();
+            }
 
         }
     }

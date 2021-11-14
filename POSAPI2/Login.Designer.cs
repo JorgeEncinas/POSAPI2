@@ -38,6 +38,7 @@
             this.loginlb = new System.Windows.Forms.Label();
             this.userpanel = new System.Windows.Forms.Panel();
             this.passwdpanel = new System.Windows.Forms.Panel();
+            this.btnSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.iconpb)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,7 +85,7 @@
             // 
             this.loginbtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.loginbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.loginbtn.Location = new System.Drawing.Point(97, 371);
+            this.loginbtn.Location = new System.Drawing.Point(97, 362);
             this.loginbtn.Name = "loginbtn";
             this.loginbtn.Size = new System.Drawing.Size(145, 35);
             this.loginbtn.TabIndex = 4;
@@ -134,12 +135,25 @@
             this.passwdpanel.Size = new System.Drawing.Size(221, 22);
             this.passwdpanel.TabIndex = 9;
             // 
+            // btnSalir
+            // 
+            this.btnSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.Location = new System.Drawing.Point(118, 403);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(108, 35);
+            this.btnSalir.TabIndex = 10;
+            this.btnSalir.Text = "SALIR";
+            this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(350, 450);
+            this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.passwdpanel);
             this.Controls.Add(this.userpanel);
             this.Controls.Add(this.loginlb);
@@ -174,5 +188,6 @@
         private System.Windows.Forms.Label loginlb;
         private System.Windows.Forms.Panel userpanel;
         private System.Windows.Forms.Panel passwdpanel;
+        private System.Windows.Forms.Button btnSalir;
     }
 }
