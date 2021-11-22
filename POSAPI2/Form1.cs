@@ -73,12 +73,6 @@ namespace POSAPI2
             return change;
         }
 
-        private void centerElementAtY(Control parent, Control child, double parentPercentage, double childPercentage)
-        {
-            child.Location = new Point(Convert.ToInt32(parent.Width / 2 - child.Width / 2),
-                    Convert.ToInt32((parent.Height * parentPercentage) - (child.Height * childPercentage)));
-        }
-
         private void setLayout()
         {
             /// <summary>Sets the components' size and layout </summary>
@@ -103,54 +97,41 @@ namespace POSAPI2
             lbTotalName.Location = new Point(Convert.ToInt32(this.Width * 0.69), Convert.ToInt32(this.Height*0.17));
             labelTotal.Location = new Point(Convert.ToInt32(this.Width * 0.89), Convert.ToInt32(this.Height*0.17));
             labelTotal.Text = "";
-            sizeToSuperior(this, btnChSaldo, 0.10, 0.10);
+            LayUtil.sizeToSuperior(this, btnChSaldo, 0.10, 0.10);
             btnChSaldo.Location = new Point(Convert.ToInt32(this.Width * 0.88),
                                             Convert.ToInt32(this.Height * 0.88));
             //Saldos window
-            sizeToSuperior(this, panelSaldo, 0.90, 0.90);
-            sizeToSuperior(panelSaldo, btn100, 0.20, 0.15);
-            sizeToSuperior(panelSaldo, btn200, 0.20, 0.15);
-            sizeToSuperior(panelSaldo, btn300, 0.20, 0.15);
-            sizeToSuperior(panelSaldo, dgvSaldo, 0.65, 0.90);
-            sizeToSuperior(panelSaldo, btnOK, 0.15, 0.10);
-            sizeToSuperior(panelSaldo, btnCancel, 0.15, 0.10);
+            LayUtil.sizeToSuperior(this, panelSaldo, 0.90, 0.90);
+            LayUtil.sizeToSuperior(panelSaldo, btn100, 0.20, 0.15);
+            LayUtil.sizeToSuperior(panelSaldo, btn200, 0.20, 0.15);
+            LayUtil.sizeToSuperior(panelSaldo, btn300, 0.20, 0.15);
+            LayUtil.sizeToSuperior(panelSaldo, dgvSaldo, 0.65, 0.90);
+            LayUtil.sizeToSuperior(panelSaldo, btnOK, 0.15, 0.10);
+            LayUtil.sizeToSuperior(panelSaldo, btnCancel, 0.15, 0.10);
             dgvSaldo.Columns["cantidad"].Width = Convert.ToInt32(dgvSaldo.Width * 0.20);
             dgvSaldo.Columns["nombre"].Width = Convert.ToInt32(dgvSaldo.Width * 0.40);
             dgvSaldo.Columns["precio"].Width = Convert.ToInt32(dgvSaldo.Width * 0.20);
             dgvSaldo.Columns["total"].Width = Convert.ToInt32(dgvSaldo.Width * 0.20);
-            sizeToSuperior(panelSaldo, lbNum1, 0.90, 0.30);
-            sizeToSuperior(panelSaldo, lbNum2, 0.90, 0.30);
-            sizeToSuperior(panelSaldo, tbNumTel, 0.20, 0.30);
-            sizeToSuperior(panelSaldo, tbNumTel2, 0.20, 0.30);
-            placeOnSuperior(panelSaldo, lbNum1, 0.50, 0.50, 0.35, 0.35);
-            placeOnSuperior(panelSaldo, lbNum2, 0.50, 0.50, 0.50, 0.50);
-            placeOnSuperior(panelSaldo, tbNumTel, 0.50, 0.50, 0.40, 0.40);
-            placeOnSuperior(panelSaldo, tbNumTel2, 0.50, 0.50, 0.55, 0.55);
+            LayUtil.sizeToSuperior(panelSaldo, lbNum1, 0.90, 0.30);
+            LayUtil.sizeToSuperior(panelSaldo, lbNum2, 0.90, 0.30);
+            LayUtil.sizeToSuperior(panelSaldo, tbNumTel, 0.20, 0.30);
+            LayUtil.sizeToSuperior(panelSaldo, tbNumTel2, 0.20, 0.30);
+            LayUtil.placeOnSuperior(panelSaldo, lbNum1, 0.50, 0.50, 0.35, 0.35);
+            LayUtil.placeOnSuperior(panelSaldo, lbNum2, 0.50, 0.50, 0.50, 0.50);
+            LayUtil.placeOnSuperior(panelSaldo, tbNumTel, 0.50, 0.50, 0.40, 0.40);
+            LayUtil.placeOnSuperior(panelSaldo, tbNumTel2, 0.50, 0.50, 0.55, 0.55);
 
-            placeOnSuperior(panelSaldo, lbMontoTxt, 0.70, 0.0, 0.75, 0.50);
-            placeOnSuperior(panelSaldo, lbMonto, 0.73, 0.0, 0.80, 0.50);
-            placeOnSuperior(this, panelSaldo, 0.50, 0.50, 0.50, 0.50);
-            placeOnSuperior(panelSaldo, dgvSaldo, 0.010, 0, 0.08, 0);
-            placeOnSuperior(panelSaldo, btn100, 0.20, 0.50, 0.30, 0.50);
-            placeOnSuperior(panelSaldo, btn200, 0.50, 0.50, 0.30, 0.50);
-            placeOnSuperior(panelSaldo, btn300, 0.80, 0.50, 0.30, 0.50);
-            placeOnSuperior(panelSaldo, btnOK, 0.75, 0.50, 0.90, 0.50);
-            placeOnSuperior(panelSaldo, btnCancel, 0.90, 0.50, 0.90, 0.50);
+            LayUtil.placeOnSuperior(panelSaldo, lbMontoTxt, 0.70, 0.0, 0.75, 0.50);
+            LayUtil.placeOnSuperior(panelSaldo, lbMonto, 0.73, 0.0, 0.80, 0.50);
+            LayUtil.placeOnSuperior(this, panelSaldo, 0.50, 0.50, 0.50, 0.50);
+            LayUtil.placeOnSuperior(panelSaldo, dgvSaldo, 0.010, 0, 0.08, 0);
+            LayUtil.placeOnSuperior(panelSaldo, btn100, 0.20, 0.50, 0.30, 0.50);
+            LayUtil.placeOnSuperior(panelSaldo, btn200, 0.50, 0.50, 0.30, 0.50);
+            LayUtil.placeOnSuperior(panelSaldo, btn300, 0.80, 0.50, 0.30, 0.50);
+            LayUtil.placeOnSuperior(panelSaldo, btnOK, 0.75, 0.50, 0.90, 0.50);
+            LayUtil.placeOnSuperior(panelSaldo, btnCancel, 0.90, 0.50, 0.90, 0.50);
             dgvSaldo.Visible = false;
             namelb.Location = new Point(lbAtiende.Location.X + lbAtiende.Width + 10, lbAtiende.Location.Y);
-        }
-
-        private void placeOnSuperior(Control superior, Control inferior, double sPercentageX, double iPercentageX, double sPercentageY, double iPercentageY)
-        {
-            inferior.Location = new Point(
-                    Convert.ToInt32((superior.Width*sPercentageX) - (inferior.Width*iPercentageX)),
-                    Convert.ToInt32((superior.Height*sPercentageY) - (inferior.Height*iPercentageY)));
-        }
-
-        private void sizeToSuperior(Control superior, Control inferior, double percentageX, double percentageY)
-        {
-            inferior.Size = new Size(Convert.ToInt32(superior.Width * percentageX),
-                                     Convert.ToInt32(superior.Height * percentageY));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -228,7 +209,7 @@ namespace POSAPI2
                                 if (recibido >= total)
                                 {
                                     GetChange(recibido);
-                                    string queryInsert = "INSERT INTO ventas(idUsuario, total, recibido) VALUES(" + idUsuario + ", " + total + ", " + recibido + ")";
+                                    string queryInsert = "INSERT INTO ventas(idUsuario, total, recibido, fecha) VALUES(" + idUsuario + ", " + total + ", " + recibido + ", NOW())";
                                     dbconn.executeNonQuery(queryInsert);
                                     string queryID = "SELECT LAST_INSERT_ID()";
                                     int ventaID = dbconn.executeScalar(queryID);
@@ -425,10 +406,28 @@ namespace POSAPI2
                 {
                     if (tbNumTel.Text == tbNumTel2.Text)
                     {
-                        string message = "Saldo agregado correctamente";  
-                        string title = "Exito";  
-                        MessageBox.Show(message, title);
-                        resetPanelSaldo();
+                        try
+                        {
+                            string queryVenta = "INSERT INTO ventasaldos(cantidad, numeroTelefono) VALUES(" + lbMonto.Text + ", '" + tbNumTel.Text +"')";
+                            dbconn.executeNonQuery(queryVenta);
+                            string queryID = "SELECT LAST_INSERT_ID()";
+                            int ventaID = dbconn.executeScalar(queryID);
+                            string querySaldo = "";
+                            foreach (DataGridViewRow row in dgvSaldo.Rows)
+                            {
+                                querySaldo = "INSERT INTO ventasaldodetalle(idVenta, saldoIndividual, cantidad) VALUES(" + ventaID + ", " + row.Cells["id"].Value.ToString() + ", " + row.Cells["cantidad"].Value.ToString() + ")";
+                                dbconn.executeNonQuery(querySaldo);
+                            }
+                            dgvSaldo.Rows.Clear();
+                            lbMonto.Text = "";
+                            string message = "Saldo agregado correctamente";
+                            string title = "Exito";
+                            MessageBox.Show(message, title);
+                            resetPanelSaldo();
+                        } catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        } 
                     } else
                     {
                         string message = "Los numeros no son iguales";  
