@@ -43,7 +43,7 @@ namespace POSAPI2
             queries.Add(2, new Tuple<string, Action>("rte_vdor_mas_ventas", rteVdorMasVentas));
             queries.Add(3, new Tuple<string, Action>("rte_vdor_menos_ventas", rteVdorMenosVentas));
             queries.Add(4, new Tuple<string, Action>("rte-vtas-por-dia", rteVtasPorDia));
-            queries.Add(5, new Tuple<string, Action>("rte-vtas-por-saldo", rteVtasPorSaldo));
+            queries.Add(5, new Tuple<string, Action>("saldos_ventas", rteVtasPorSaldo));
         }
 
         public void getReporte(object sender, EventArgs e)
@@ -79,11 +79,19 @@ namespace POSAPI2
 
         private void rteMenosVentas()
         {
-
+            LayUtil.sizeToSuperior(this, dgvRte, 0.50, 0.50);
+            LayUtil.placeOnSuperior(this, dgvRte, 0.50, 0.50, 0.20, 0);
+            dgvRte.Columns[0].Width = Convert.ToInt32(dgvRte.Width * 0.2);
+            dgvRte.Columns[1].Width = Convert.ToInt32(dgvRte.Width * 0.6);
+            dgvRte.Columns[2].Width = Convert.ToInt32(dgvRte.Width * 0.2);
         }
         private void rteProdMenosVendido()
         {
-
+            LayUtil.sizeToSuperior(this, dgvRte, 0.50, 0.50);
+            LayUtil.placeOnSuperior(this, dgvRte, 0.50, 0.50, 0.20, 0);
+            dgvRte.Columns[0].Width = Convert.ToInt32(dgvRte.Width * 0.2);
+            dgvRte.Columns[1].Width = Convert.ToInt32(dgvRte.Width * 0.6);
+            dgvRte.Columns[2].Width = Convert.ToInt32(dgvRte.Width * 0.2);
         }
         private void rteVdorMasVentas()
         {
@@ -116,7 +124,10 @@ namespace POSAPI2
         }
         private void rteVtasPorSaldo()
         {
-
+            LayUtil.sizeToSuperior(this, dgvRte, 0.50, 0.50);
+            LayUtil.placeOnSuperior(this, dgvRte, 0.50, 0.50, 0.20, 0);
+            dgvRte.Columns[0].Width = Convert.ToInt32(dgvRte.Width * 0.50);
+            dgvRte.Columns[1].Width = Convert.ToInt32(dgvRte.Width * 0.50);
         }
         private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
         {
