@@ -87,11 +87,25 @@ namespace POSAPI2
         }
         private void rteVdorMasVentas()
         {
-
+            LayUtil.sizeToSuperior(this, dgvRte, 0.90, 0.50);
+            LayUtil.placeOnSuperior(this, dgvRte, 0.50, 0.50, 0.20, 0);
+            dgvRte.Columns[0].Width = Convert.ToInt32(dgvRte.Width * 0.20);
+            dgvRte.Columns[1].Width = Convert.ToInt32(dgvRte.Width * 0.15);
+            dgvRte.Columns[2].Width = Convert.ToInt32(dgvRte.Width * 0.25);
+            dgvRte.Columns[3].Width = Convert.ToInt32(dgvRte.Width * 0.20);
+            dgvRte.Columns[4].Width = Convert.ToInt32(dgvRte.Width * 0.20);
+            dgvRte.ScrollBars = System.Windows.Forms.ScrollBars.None;
         }
         private void rteVdorMenosVentas()
         {
-
+            LayUtil.sizeToSuperior(this, dgvRte, 0.90, 0.50);
+            LayUtil.placeOnSuperior(this, dgvRte, 0.50, 0.50, 0.20, 0);
+            dgvRte.Columns[0].Width = Convert.ToInt32(dgvRte.Width * 0.20);
+            dgvRte.Columns[1].Width = Convert.ToInt32(dgvRte.Width * 0.15);
+            dgvRte.Columns[2].Width = Convert.ToInt32(dgvRte.Width * 0.25);
+            dgvRte.Columns[3].Width = Convert.ToInt32(dgvRte.Width * 0.20);
+            dgvRte.Columns[4].Width = Convert.ToInt32(dgvRte.Width * 0.20);
+            dgvRte.ScrollBars = System.Windows.Forms.ScrollBars.None;
         }
         private void rteVtasPorDia()
         { //Size first, place second

@@ -132,6 +132,13 @@ namespace POSAPI2
             LayUtil.placeOnSuperior(panelSaldo, btnCancel, 0.90, 0.50, 0.90, 0.50);
             dgvSaldo.Visible = false;
             namelb.Location = new Point(lbAtiende.Location.X + lbAtiende.Width + 10, lbAtiende.Location.Y);
+
+            salir.Text = "Salir";
+            salir.Font = new Font("Times new Roman", 20F, FontStyle.Bold);
+            LayUtil.sizeToSuperior(this, salir, 0.07, 0.05);
+            salir.Location = new Point(Convert.ToInt32(this.Width * 0.025), Convert.ToInt32(this.Height * 0.012));
+            salir.BackColor = this.BackColor;
+        
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -513,6 +520,11 @@ namespace POSAPI2
                 //getTotalSaldo();
             }
 
+        }
+
+        private void salir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
